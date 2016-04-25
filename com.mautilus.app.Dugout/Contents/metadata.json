@@ -1,0 +1,19 @@
+{
+	"identifier": "com.mautilus.app.Dugout",
+	"name": "Dugout",
+	"version": "0.0.1",
+	"author": "Mautilus s.r.o",
+	"company": "Mautilus s.r.o",
+	"copyright": "Mautilus s.r.o 2014",
+	"description": "Multiplayer game",
+	"categories": [
+		"games"
+	],
+	"scripts": "Javascript/init.js",
+	"images": {
+		"about": "Images/Icon.png",
+		"icon": {
+			"192x192": "Images/Icon.png"
+		}
+	}
+}
