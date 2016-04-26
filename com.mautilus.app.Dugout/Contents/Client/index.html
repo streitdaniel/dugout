@@ -14,6 +14,7 @@
 		<script type="text/javascript">
 			function start() {
 				console.log("DOM ready");
+				App.init();
 			}
 		</script>
 		
@@ -21,7 +22,7 @@
 	<body onLoad="start();">
 		<div id="viewport">
 			<div id="connecting" class="scene">
-				<div id="logo"></div>
+				<img id="logo" src="./img/splash_logo.png" />
 				<div class="text">connecting to game...</div>
 			</div>
 			<div id="login" class="scene"></div>

@@ -1,3 +1,12 @@
+/* fonts */
+/* latin */
+@font-face {
+	font-family: 'Ubuntu';
+	font-style: normal;
+	font-weight: 400;
+	src: url(../font/Ubuntu-Regular.woff2) format('woff2');
+}
+
 /* css files */
 html {
 	width: 100%;
@@ -11,6 +20,8 @@ body {
 	height: 100%;
 	padding: 0px;
 	margin: 0px;
+	font-family: Ubuntu, sans-serif;
+	font-size: 1em; /* 40px/16=2.5em */
 }
 
 #viewport {
@@ -28,13 +39,26 @@ body {
 * connecting scene
 */
 #connecting {
+	width: auto;
+	height: auto;
+	padding: 20px 20px 0px;
+	text-align: center;
 }
 
 	#connecting #logo {
-		background: url('./img/logo.png');
+		display: block;
+		width: 80%;
+		max-width: 685px;
+		margin: 0px auto 30px;
 	}
 	
 	#connecting .text {
+		display: inline-block;
+		padding: 0px 20px 0px;
+		font-size: 1.5em;
+		line-height: 1.7em;
+		background-color: rgba(255,255,255, 0.6);
+		border-radius: 1em;;
 	}
 
 /**
