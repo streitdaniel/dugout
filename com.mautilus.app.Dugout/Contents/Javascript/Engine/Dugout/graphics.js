@@ -219,13 +219,13 @@ Dugout_Graphics = function(app) {
     function getImagePath(object) {
         switch(object) {
             case RED_WORM:
-                return "Images/ingame/cervik_in_1.png";
+                return "Images/ingame/cervik_in_red.png";
             case GREEN_WORM:
-                return "Images/ingame/cervik_in_2.png";
+                return "Images/ingame/cervik_in_green.png";
             case YELLOW_WORM:
-                return "Images/ingame/cervik_in_3.png";
+                return "Images/ingame/cervik_in_yellow.png";
             case BLUE_WORM:
-                return "Images/ingame/cervik_in_4.png";
+                return "Images/ingame/cervik_in_blue.png";
             case SPEED_UP:
                 return "Images/ingame/bonus_speedup.png";
             case SPEED_DOWN:
@@ -236,14 +236,15 @@ Dugout_Graphics = function(app) {
                 return "Images/ingame/bonus_score.png";
             case HEAL:
                 return "Images/ingame/bonus_lekarna.png";
-            case RED_WORM_DEAD:
-                return "Images/ingame/hrobecek_1.png";
-            case GREEN_WORM_DEAD:
-                return "Images/ingame/hrobecek_2.png";
-            case YELLOW_WORM_DEAD:
-                return "Images/ingame/hrobecek_3.png";
             case BLUE_WORM_DEAD:
-                return "Images/ingame/hrobecek_4.png";
+                return "Images/ingame/hrobecek_blue.png";
+            case GREEN_WORM_DEAD:
+                return "Images/ingame/hrobecek_green.png";
+            case RED_WORM_DEAD:
+                return "Images/ingame/hrobecek_red.png";
+            case YELLOW_WORM_DEAD:
+                return "Images/ingame/hrobecek_yellow.png";
+
         }
     }
 
