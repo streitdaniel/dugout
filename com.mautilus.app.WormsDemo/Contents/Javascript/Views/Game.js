@@ -143,7 +143,7 @@ var Game = new MAF.Class({
             ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
             ctx2.translate(players[key].position.x, players[key].position.y);
             ctx2.rotate(players[key].direction);
-            ctx2.drawImage(wormImg, -7,- 17, 14, 34);
+            ctx2.drawImage(wormImg, -10,- 25, 21, 51);
             ctx2.rotate( - players[key].direction);
             ctx2.translate(- players[key].position.x, - players[key].position.y);
         }

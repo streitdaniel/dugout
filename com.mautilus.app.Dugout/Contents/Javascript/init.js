@@ -21,3 +21,11 @@ MAF.application.init({
 	defaultViewId: 'view-SplashscreenView',
 	settingsViewId: 'view-About'
 });
+
+// Game engine
+include('Javascript/Engine/Dugout/audio.js');
+include('Javascript/Engine/Dugout/graphics.js');
+include('Javascript/Engine/Dugout/logic.js');
+include('Javascript/Engine/Dugout/dugout.js');
+
+include('Javascript/Engine/main.js');
