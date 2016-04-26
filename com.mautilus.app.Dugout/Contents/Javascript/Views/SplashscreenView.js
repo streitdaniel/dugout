@@ -4,7 +4,6 @@
  * @class SplashscreenView
  * @extends MAF.system.FullscreenView
  */
-debugger
 var SplashscreenView = new MAF.Class({
 	ClassName: 'SplashscreenView',
 
@@ -27,7 +26,6 @@ var SplashscreenView = new MAF.Class({
 	
 
 	initialize: function () {
-		debugger
 		console.log('[SplashscreenView] initialize');
 		this.parent();
 		
@@ -56,7 +54,6 @@ var SplashscreenView = new MAF.Class({
 	 * Place here - Create and append most -if not all- of your elements here
 	 */
 	createView: function () {
-		debugger
 		console.log('[SplashscreenView] createView');
 	},
 
