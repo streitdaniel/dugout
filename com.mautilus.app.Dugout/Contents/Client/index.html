@@ -22,10 +22,14 @@
 	<body onLoad="start();">
 		<div id="viewport">
 			<div id="connecting" class="scene">
-				<img id="logo" src="./img/splash_logo.png" />
+				<img class="logo" src="./img/splash_logo.png" />
 				<div class="text">connecting to game...</div>
 			</div>
-			<div id="login" class="scene"></div>
+			<div id="login" class="scene" style="display: block">
+				<img class="logo" src="./img/splash_logo.png" />
+				<div><input id="input-login" type="text" placeholder="Player" /></div>
+				<div><button id="btn-submit"type="button">Submit</button></div>
+			</div>
 			<div id="start" class="scene"></div>
 			<div id="controls" class="scene"></div>
 			<div id="death" class="scene"></div>
