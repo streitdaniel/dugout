@@ -2,16 +2,17 @@
  * Podium view
  * 
  * @class PodiumView
- * @extends MAF.system.SidebarView
+ * @extends MAF.system.FullscreenView
  */
 var PodiumView = new MAF.Class({
 	ClassName: 'PodiumView',
 
-	Extends: MAF.system.SidebarView,
+	Extends: MAF.system.FullscreenView,
 
 	initialize: function () {
 		console.log('[PodiumView] initialize');
 		this.parent();
+		this.colors = ['blue', 'green', 'red', 'yellow']
 	},
 
 	/**
@@ -21,6 +22,7 @@ var PodiumView = new MAF.Class({
 	 */
 	initView: function() {
 		console.log('[PodiumView] initView');
+		// load images
 	},
 	
 	/**
@@ -30,6 +32,34 @@ var PodiumView = new MAF.Class({
 	 */
 	createView: function () {
 		console.log('[PodiumView] createView');
+
+		/*
+		var splashLogo = new MAF.element.Image({
+			autoShow: false,
+			hideWhileLoading: true,
+			src: '/Images/splash_logo.png'
+		});
+		*/
+
+		// define worms object
+		this.worms = {};
+
+		// initialize each worms color
+		for (var index in this.colors) {
+			// assign color
+			var color = this.colors[index];
+
+			this.worms[color] = new MAF.element.Image({
+				autoShow: false,
+				hideWhileLoading: true,
+				src: '/Images/worm_' + color + '_win.png'
+			});
+
+			this.worms[color].appendTo(this);
+			// add basic class
+			this.worms[color].element.addClass('imgPodium');
+		}
+
 	},
 
 	/**
@@ -39,6 +69,15 @@ var PodiumView = new MAF.Class({
 	 */
 	updateView: function () {
 		console.log('[PodiumView] updateView');
+
+		// show the winner
+		this.showWinner('Radim');
+
+		// show worm on podium
+		this.showWorm(1, 'blue', 'Radim', 15);
+		this.showWorm(2, 'green', 'Martin', 12);
+		this.showWorm(3, 'red', 'Ondra', 10);
+		this.showWorm(4, 'yellow', 'Petr', 8);
 	},
 	
 	/**
@@ -84,5 +123,58 @@ var PodiumView = new MAF.Class({
 	 */
 	destroyView: function() {
 		console.log('[PodiumView] destroyView');
+	},
+
+	/**
+	 * Show worm on the podium
+	 * @param {Integer} - position
+	 * @param {String} - color
+	 * @param {String} - name
+	 * @param {Integer} - score
+	 */
+	showWorm: function(position, color, name, score) {
+
+		// assign css style to worm
+		this.worms[color].element.addClass('position' + position);
+		// show worm
+		this.worms[color].show();
+
+		// show name
+		this.textName = new MAF.element.Text({
+			totalLines: 1,
+			data: name
+		});
+		this.textName.element.addClass('podiumText');
+		this.textName.element.addClass('name');
+		this.textName.element.addClass('position' + position);
+		this.textName.appendTo(this);
+		this.textName.show();
+
+		// show score
+		this.textScore = new MAF.element.Text({
+			totalLines: 1,
+			data: score
+		});
+		this.textScore.element.addClass('podiumText');
+		this.textScore.element.addClass('score');
+		this.textScore.element.addClass('position' + position);
+		this.textScore.appendTo(this);
+		this.textScore.show();
+
+	},
+
+	/**
+	 * Show the winner
+	 * @param {String} - name
+	 */
+	showWinner: function(name) {
+		this.textWinner = new MAF.element.Text({
+			totalLines: 1,
+		});
+		this.textWinner.element.addClass('winner');
+		this.textWinner.setText($_('the_winner_is') + ': ' + name);
+		this.textWinner.appendTo(this);
+		this.textWinner.show();
 	}
+
 });

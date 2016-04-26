@@ -35,5 +35,132 @@ Theme.set({
 		styles: {
 			opacity: 0
 		}
-	}
+	},
+
+	PodiumView: {
+		styles: {
+			backgroundImage: 'url("./apps/com.mautilus.app.Dugout/Contents/Images/score_bg.png")'
+		}
+	},
+
+	'imgPodium.position1': {
+		styles: {
+			top: '211px',
+			left: '1276px'
+		}
+	},
+
+	'imgPodium.position2': {
+		styles: {
+			top: '285px',
+			left: '1041px'
+		}
+	},
+
+	'imgPodium.position3': {
+		styles: {
+			top: '359px',
+			left: '811px'
+		}
+	},
+
+	'imgPodium.position4': {
+		styles: {
+			top: '432px',
+			left: '582px'
+		}
+	},
+
+	'podiumText': {
+		styles: {
+			'display': 'inline-block',
+			'font-size': '26px',
+			'line-height': '45px',
+			'background-color': 'rgba(255,255,255, 0.6)',
+			'border-radius': '30px',
+			'width': '220px',
+			'color': '#000000',
+			'text-align': 'center',
+			'box-shadow': ' 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 23px 0 rgba(0, 0, 0, 0.05)'
+		}
+	},
+
+	'winner': {
+		styles: {
+			'top': '120px',
+			'left': '554px',
+			'display': 'inline-block',
+			'font-size': '26px',
+			'line-height': '45px',
+			'background-color': 'rgba(255,255,255, 0.6)',
+			'border-radius': '30px',
+			'width': '917px',
+			'color': '#000000',
+			'text-align': 'center',
+			'font-weight': 'bold',
+			'box-shadow': ' 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 23px 0 rgba(0, 0, 0, 0.05)'
+		}
+	},
+
+	'podiumText.name': {
+		styles: {
+			'font-weight': 'bold',
+			'top': '782px'
+		}
+	},
+
+	'podiumText.score': {
+		styles: {
+			'top': '832px'
+		}
+	},
+
+	'podiumText.name.position1': {
+		styles: {
+			left: '1248px'
+		}
+	},
+
+	'podiumText.name.position2': {
+		styles: {
+			left: '1018px'
+		}
+	},
+
+	'podiumText.name.position3': {
+		styles: {
+			left: '788px'
+		}
+	},
+
+	'podiumText.name.position4': {
+		styles: {
+			left: '558px'
+		}
+	},
+
+	'podiumText.score.position1': {
+		styles: {
+			left: '1248px'
+		}
+	},
+
+	'podiumText.score.position2': {
+		styles: {
+			left: '1018px'
+		}
+	},
+
+	'podiumText.score.position3': {
+		styles: {
+			left: '788px'
+		}
+	},
+
+	'podiumText.score.position4': {
+		styles: {
+			left: '558px'
+		}
+	},
+
 });	
