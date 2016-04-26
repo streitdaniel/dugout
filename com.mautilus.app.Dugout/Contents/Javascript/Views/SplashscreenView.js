@@ -65,9 +65,10 @@ var SplashscreenView = new MAF.Class({
 			splashLogo.appendTo(this);
 
 			fadeIn.subscribeTo(splashLogo, 'onLoaded');
+			loadHomeView.subscribeTo(splashLogo, 'onAnimationEnded');
 
 			function fadeIn(event) {
-				var timer = new Timer(1, function() {
+				var timer = new Timer(1, function () {
 					splashLogo.show();
 					splashLogo.animate({
 						duration: 1
@@ -79,6 +80,10 @@ var SplashscreenView = new MAF.Class({
 				});
 
 				timer.start();
+			}
+
+			function loadHomeView() {
+				MAF.application.loadView('view-HomeView');
 			}
 		},
 
