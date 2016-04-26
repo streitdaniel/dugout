@@ -9,7 +9,16 @@ Dugout_Graphics = function(app) {
         TURN_IN = 6,
         COIN = 7,
         HEAL = 8,
-        DEATH_WORM = 9,
+        RED_WORM_DEAD = 9,
+        GREEN_WORM_DEAD = 10,
+        YELLOW_WORM_DEAD = 11,
+        BLUE_WORM_DEAD = 12,
+        WORM_WIDTH = 27,
+        WORM_HEIGHT = 68,
+        BONUS_WIDTH = 74,
+        BONUS_HEIGHT = 74,
+        DEATH_WIDTH = 68,
+        DEATH_HEIGHT = 94,
         rendering = false,
         canvasWidth = 1776,
         canvasHeight = 1000,
@@ -81,10 +90,10 @@ Dugout_Graphics = function(app) {
         wormContext.clearRect(0, 0, canvasWidth, canvasHeight);
         for (key in players) {
             player = players[key];
-            wormImg = getSpritePosition(getObjectByPlayerColor());
+            wormImg = getSpritePosition(getObjectByPlayerColor(player));
             wormContext.translate(player.position.x, player.position.y);
             wormContext.rotate(player.direction);
-            wormContext.drawImage(spriteCanvas.element, wormImg.x, wormImg.y, wormImg.width, wormImg.height, -10,- 25, 21, 51);
+            wormContext.drawImage(spriteCanvas.element, wormImg.x, wormImg.y, wormImg.width, wormImg.height, -WORM_WIDTH / 2, -WORM_HEIGHT / 2, WORM_WIDTH, WORM_HEIGHT);
             wormContext.rotate( - player.direction);
             wormContext.translate(- player.position.x, - player.position.y);
         }
@@ -96,7 +105,7 @@ Dugout_Graphics = function(app) {
         for (i = 0; i < bonusesLength; i++) {
             bonus = bonuses[i];
             bonusImg = getSpritePosition(bonus.type);
-            bonusContext.drawImage(spriteCanvas.element, bonusImg.x, bonusImg.y, bonusImg.width, bonusImg.height, bonus.position.x, bonus.position.y, 49, 49);
+            bonusContext.drawImage(spriteCanvas.element, bonusImg.x, bonusImg.y, bonusImg.width, bonusImg.height, bonus.position.x - BONUS_WIDTH / 2, bonus.position.y - BONUS_HEIGHT / 2, BONUS_WIDTH, BONUS_HEIGHT);
         }
     }
     
@@ -122,26 +131,27 @@ Dugout_Graphics = function(app) {
 
     function prepareCanvases() {
         var canvasStyles = { position: 'absolute', top: 0, left: 0, width: 1776, height: 1000 };
-        pathCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
+        pathCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         pathContext = pathCanvas.element.getContext('2d');
-        slimeCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
+        slimeCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         slimeContext = slimeCanvas.element.getContext('2d');
-        wormCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
+        wormCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         wormContext = wormCanvas.element.getContext('2d');
-        bonusCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
+        bonusCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         bonusContext = bonusCanvas.element.getContext('2d');
-        spriteCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
+        spriteCanvas = new MAF.element.Core({ element: Canvas, styles: {} });
+        spriteCanvas.width = 750;
+        spriteCanvas.height = 94;
         spriteContext = spriteCanvas.element.getContext('2d');
         prepareGraphics();
     }
 
     function prepareGraphics() {
-        var i, toLoad = [RED_WORM, GREEN_WORM, YELLOW_WORM, BLUE_WORM, SPEED_UP, SPEED_DOWN, TURN_IN, COIN, HEAL, DEATH_WORM];
+        var i, toLoad = [RED_WORM, GREEN_WORM, YELLOW_WORM, BLUE_WORM, SPEED_UP, SPEED_DOWN, TURN_IN, COIN, HEAL, RED_WORM_DEAD, GREEN_WORM_DEAD, YELLOW_WORM_DEAD, BLUE_WORM_DEAD];
         loadedImages = 0;
         imagesToLoad = toLoad.length;
         for (i = 0; i < imagesToLoad; i++) {
             loadImage(toLoad[i]);
-            console.log("Image loaded");
         }
     }
 
@@ -162,67 +172,78 @@ Dugout_Graphics = function(app) {
         // TODO
     }
 
-    function getObjectByPlayerColor(color) {
-        switch(color) {
+    function getObjectByPlayerColor(player) {
+        switch(player.color) {
             case '#ed008c':
-                return RED_WORM;
+                return (player.dead)? RED_WORM_DEAD : RED_WORM;
             case '#8cc63e':
-                return GREEN_WORM;
+                return (player.dead)? GREEN_WORM_DEAD : GREEN_WORM;
             case '#fcb040':
-                return YELLOW_WORM;
+                return (player.dead)? YELLOW_WORM_DEAD : YELLOW_WORM;
             case '#008ad2':
-                return BLUE_WORM;
+                return (player.dead)? BLUE_WORM_DEAD : BLUE_WORM;
         }
     }
 
     function getSpritePosition(object) {
         switch(object) {
             case RED_WORM:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 0, y: 0, width: WORM_WIDTH, height: WORM_HEIGHT };
             case GREEN_WORM:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 27, y: 0, width: WORM_WIDTH, height: WORM_HEIGHT };
             case YELLOW_WORM:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 54, y: 0, width: WORM_WIDTH, height: WORM_HEIGHT };
             case BLUE_WORM:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 81, y: 0, width: WORM_WIDTH, height: WORM_HEIGHT };
             case SPEED_UP:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 380, y: 0, width: BONUS_WIDTH, height: BONUS_HEIGHT };
             case SPEED_DOWN:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 454, y: 0, width: BONUS_WIDTH, height: BONUS_HEIGHT };
             case TURN_IN:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 528, y: 0, width: BONUS_WIDTH, height: BONUS_HEIGHT };
             case COIN:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 602, y: 0, width: BONUS_WIDTH, height: BONUS_HEIGHT };
             case HEAL:
-                return { x: 0, y: 0, width: 0, height: 0 };
-            case DEATH_WORM:
-                return { x: 0, y: 0, width: 0, height: 0 };
+                return { x: 676, y: 0, width: BONUS_WIDTH, height: BONUS_HEIGHT };
+            case RED_WORM_DEAD:
+                return { x: 108, y: 0, width: DEATH_WIDTH, height: DEATH_HEIGHT };
+            case GREEN_WORM_DEAD:
+                return { x: 176, y: 0, width: DEATH_WIDTH, height: DEATH_HEIGHT };
+            case YELLOW_WORM_DEAD:
+                return { x: 244, y: 0, width: DEATH_WIDTH, height: DEATH_HEIGHT };
+            case BLUE_WORM_DEAD:
+                return { x: 312, y: 0, width: DEATH_WIDTH, height: DEATH_HEIGHT };
         }
     }
 
     function getImagePath(object) {
-        return "https://www.google.cz/images/nav_logo242.png";
         switch(object) {
             case RED_WORM:
-                return "Images/.png";
+                return "Images/ingame/cervik_in_1.png";
             case GREEN_WORM:
-                return "Images/.png";
+                return "Images/ingame/cervik_in_2.png";
             case YELLOW_WORM:
-                return "Images/.png";
+                return "Images/ingame/cervik_in_3.png";
             case BLUE_WORM:
-                return "Images/.png";
+                return "Images/ingame/cervik_in_4.png";
             case SPEED_UP:
-                return "Images/.png";
+                return "Images/ingame/bonus_speedup.png";
             case SPEED_DOWN:
-                return "Images/.png";
+                return "Images/ingame/bonus_speeddown.png";
             case TURN_IN:
-                return "Images/.png";
+                return "Images/ingame/bonus_better.png";
             case COIN:
-                return "Images/.png";
+                return "Images/ingame/bonus_score.png";
             case HEAL:
-                return "Images/.png";
-            case DEATH_WORM:
-                return "Images/.png";
+                return "Images/ingame/bonus_lekarna.png";
+            case RED_WORM_DEAD:
+                return "Images/ingame/hrobecek_1.png";
+            case GREEN_WORM_DEAD:
+                return "Images/ingame/hrobecek_2.png";
+            case YELLOW_WORM_DEAD:
+                return "Images/ingame/hrobecek_3.png";
+            case BLUE_WORM_DEAD:
+                return "Images/ingame/hrobecek_4.png";
         }
     }
 

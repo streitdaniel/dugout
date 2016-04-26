@@ -30,6 +30,7 @@ var PlaygroundView = new MAF.Class({
 	 */
 	createView: function () {
 		console.log('[PlaygroundView] createView');
+		
 	},
 
 	/**
