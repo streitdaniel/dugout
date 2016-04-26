@@ -1,6 +1,5 @@
 .idea
 com.metrological*
-com.mautilus.app.WormsDemo
 
 #ignore config files of Eclipse IDE
 org.eclipse.w*
