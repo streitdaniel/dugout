@@ -22,5 +22,18 @@ Theme.set({
 			backgroundColor: '#000',
 			backgroundImage: "url('./apps/com.mautilus.app.Dugout/Contents/Images/splash_bg.png')"
 		}
+	},
+
+	splashLogo: {
+		styles: {
+			vOffset: 297,
+			hOffset: 446
+		}
+	},
+
+	'splashLogo.hidden': {
+		styles: {
+			opacity: 0
+		}
 	}
 });	
