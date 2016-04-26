@@ -1,0 +1,7 @@
+.idea
+com.metrological*
+
+#ignore config files of Eclipse IDE
+org.eclipse.w*
+.project
+.settings

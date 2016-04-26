@@ -1,0 +1,19 @@
+{
+	"identifier": "com.mautilus.app.WormsDemo",
+	"name": "Demo of Worms Game",
+	"version": "0.0.1",
+	"author": "Vit Salomon",
+	"company": "Mautilus",
+	"copyright": "Mautilus 2016",
+	"description": "Demo of a game in preparation for tv connect appathon",
+	"categories": [
+		"games"
+	],
+	"scripts": "Javascript/init.js",
+	"images": {
+		"about": "Images/Icon.png",
+		"icon": {
+			"192x192": "Images/Icon.png"
+		}
+	}
+}
