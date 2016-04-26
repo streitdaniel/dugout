@@ -41,7 +41,7 @@ var SplashscreenView = new MAF.Class({
 		 */
 		initView: function () {
 			var onAppendProcess = function () {
-				onsole.log('[SplashscreenView] onAppend1');
+				console.log('[SplashscreenView] onAppend1');
 			};
 			onAppendProcess.subscribeTo(this, 'onAppend', this);
 			console.log('[SplashscreenView] initView');

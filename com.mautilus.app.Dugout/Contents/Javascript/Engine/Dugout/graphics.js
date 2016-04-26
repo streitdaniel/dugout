@@ -27,7 +27,6 @@ Dugout_Graphics = function(app) {
         imagesToLoad,
         getAnimationFrame = requestAnimationFrame || webkitRequestAnimationFrame || mozRequestAnimationFrame || msRequestAnimationFrame || oRequestAnimationFrame;
 
-    prepareGraphics();
     prepareCanvases();
 
     function startRendering() {
@@ -122,17 +121,18 @@ Dugout_Graphics = function(app) {
     }
 
     function prepareCanvases() {
-        var canvasStyles = { position: 'absolute', top: 0, left: 0, width: canvasWidth, height: canvasHeight };
-        pathCanvas = MAF.element.Core({ element: Canvas, styles: canvasStyles });
+        var canvasStyles = { position: 'absolute', top: 0, left: 0, width: 1776, height: 1000 };
+        pathCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
         pathContext = pathCanvas.element.getContext('2d');
-        slimeCanvas = MAF.element.Core({ element: Canvas, styles: canvasStyles });
+        slimeCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
         slimeContext = slimeCanvas.element.getContext('2d');
-        wormCanvas = MAF.element.Core({ element: Canvas, styles: canvasStyles });
+        wormCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
         wormContext = wormCanvas.element.getContext('2d');
-        bonusCanvas = MAF.element.Core({ element: Canvas, styles: canvasStyles });
+        bonusCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
         bonusContext = bonusCanvas.element.getContext('2d');
-        spriteCanvas = MAF.element.Core({ element: Canvas, styles: canvasStyles });
+        spriteCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });;
         spriteContext = spriteCanvas.element.getContext('2d');
+        prepareGraphics();
     }
 
     function prepareGraphics() {
@@ -141,6 +141,7 @@ Dugout_Graphics = function(app) {
         imagesToLoad = toLoad.length;
         for (i = 0; i < imagesToLoad; i++) {
             loadImage(toLoad[i]);
+            console.log("Image loaded");
         }
     }
 
@@ -200,6 +201,7 @@ Dugout_Graphics = function(app) {
     }
 
     function getImagePath(object) {
+        return "https://www.google.cz/images/nav_logo242.png";
         switch(object) {
             case RED_WORM:
                 return "Images/.png";

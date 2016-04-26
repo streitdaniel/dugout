@@ -32,7 +32,7 @@ Dugout = function() {
                 case 'onCreated':
                     // Create an url to the client application and pass the hash as querystring
                     onCreated(payload);
-                    log('room created', payload.hash, url);
+                    log('room created', payload.hash);
                     return;
                 case 'onDestroyed':
                     onDestroyed(); // Reset clients
