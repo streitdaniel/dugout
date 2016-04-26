@@ -25,8 +25,8 @@ var App = new (function(){
 	this.scenes = [];   // list of scenes
 	
 	this.init = function() {
-		console.log("App init");
-	};
+		connectingView.init();
+	};;
 })();
 
 
@@ -37,41 +37,68 @@ var View = (function() {
 	
 	// constructor
 	var View = function(id) {
-		this.el = document.getElementById(id) || null;
+		this.id = id;
 	};
 	
 	View.prototype = {
 		constructor: View,  // keep contruct
 		/**
+		 * To init
+		 */
+		init: function() {
+			this.el = document.getElementById(this.id) || null;
+		},
+		/**
 		 * To render view
 		 * @virtual
 		 */
 		render: function() {
+			this.el.style.display = 'block';
 		},
 		/**
 		 * To hide view
 		 * @virtual
 		 */
 		hide: function() {
-			this.el.
+			this.el.style.display = 'none';
 		}
 	};
 	return View;
 })();
+
 
 /**
  * connectingView. Instance of View
  */
 var connectingView = function(){
 	
-	var connectingView = new View('connecting');
-	connectingView.render = function() {
+	var view = new View('connecting');
+	return view;
+}();
+
+/**
+ * loginView. Instance of View
+ */
+var loginView = function(){
+	
+	var view = new View('login');
+	return view;
+}();
+
+
+/**
+ * testView. Instance of View
+ */
+var testView = function(){
+	
+	var view = new View();
+	view.id = 'test';
+	view.render = function() {
 		console.log('[connectingView] render');
 	};
-	connectingView.hide = function() {
+	view.hide = function() {
 		console.log('[connectingView] hide');
-		
 	};
 	
-	return connectingView;
+	return view;
 }();
