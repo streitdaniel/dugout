@@ -16,6 +16,7 @@ Dugout = function() {
     this.audio = audio;
     this.getQRCode = getQRCode;
     this.getPlayers = getPlayers;
+    this.getOrderedPlayers = getOrderedPlayers;
     this.renderBonuses = renderBonuses;
     this.setNewPosition = setNewPosition;
     this.getVisibleCanvases = getVisibleCanvases;
@@ -167,6 +168,37 @@ Dugout = function() {
 
     function getPlayers() {
         return players;
+    }
+
+    function getOrderedPlayers() {
+        var key, max1, max2, max3, max4, max1v = -1, max2v = -1, max3v = -1, max4v, orderedPlayers = [];
+        for (key in players) {
+            max4 = key;
+            max4v = players[key].score;
+            if (max4v > max3v) {
+                max4v = max3v;
+                max4 = max3;
+                max3 = key;
+                max3v = players[key].value;
+            }
+            if (max3v > max2v) {
+                max3v = max2v;
+                max3 = max2;
+                max2 = key;
+                max2v = players[key].value;
+            }
+            if (max2v > max1v) {
+                max2v = max1v;
+                max2 = max1;
+                max1 = key;
+                max1v = players[key].value;
+            }
+        }
+        if (players[max1]) { orderedPlayers.push(players[max1]); }
+        if (players[max2]) { orderedPlayers.push(players[max2]); }
+        if (players[max3]) { orderedPlayers.push(players[max3]); }
+        if (players[max4]) { orderedPlayers.push(players[max4]); }
+        return orderedPlayers;
     }
 
     function setNewPosition(p) {
