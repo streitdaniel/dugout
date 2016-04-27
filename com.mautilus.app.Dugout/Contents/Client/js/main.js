@@ -152,10 +152,41 @@ var Client = new (function(){
 	
 	/**
 	 * To send message to room
-	 * @param {String} message
+	 * @param {Object|String} message
 	 */
 	this.send = function(message) {
+		//var message = {event: 'cl_event', clients: [], attrs: {}};
 		this.room.send(message);
+	};
+	
+	this.sendReady = function(name) {
+		var message = {event: 'cl_ready', clients: [], attrs: {name: name}};
+		this.send(message);
+	};
+	
+	this.sendStartGame = function() {
+		var message = {event: 'cl_start_game', clients: [], attrs: {}};
+		this.send(message);
+	};
+	
+	this.sendTurnLeft = function() {
+		var message = {event: 'cl_turn_left', clients: [], attrs: {}};
+		this.send(message);
+	};
+	
+	this.sendTurnRight = function() {
+		var message = {event: 'cl_turn_right', clients: [], attrs: {}};
+		this.send(message);
+	};
+	
+	this.sendExit = function() {
+		var message = {event: 'cl_exit', clients: [], attrs: {}};
+		this.send(message);
+	};
+	
+	this.sendDbgMessage = function(message) {
+		var message = {event: 'dbg_message', clients: [], attrs: {message: message}};
+		this.send(message);
 	};
 	
 	/**
@@ -302,6 +333,19 @@ var connectingView = function(){
 var loginView = function(){
 	
 	var view = new View('login');
+	/**
+	 * To init
+	 */
+	view.init = function() {
+		this.el = document.getElementById(this.id) || null;
+		
+		var btnSubmit = document.getElementById('btn-submit');
+		btnSubmit.addEventListener("click", function() {
+			var input = document.getElementById('input-login');
+			var name = input.value;
+			Client.sendReady(name);
+		});
+	};
 	/**
 	 * To set player name
 	 * @param {String} name - player name
