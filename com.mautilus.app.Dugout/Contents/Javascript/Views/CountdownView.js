@@ -53,7 +53,6 @@ var CountdownView = new MAF.Class({
 
 		}
 
-		dugout.audio.playSound(dugout.audio.COUNTDOWN_SOUND);
 	},
 
 	/**
@@ -64,9 +63,9 @@ var CountdownView = new MAF.Class({
 	updateView: function () {
 		console.log('[CountdownView] updateView');
 
+		dugout.audio.playSound(dugout.audio.COUNTDOWN_SOUND);
+
 		this.color = (this.color >= 3) ? 0 : this.color ;
-		console.log('COLOR NO: ' + this.color);
-		console.log('COLOR NAME: ' + this.colors[this.color]);
 		//dugout.audio.playSound(dugout.audio.COUNTDOWN_SOUND);
 
 		this.semaphore[this.colors[this.color]].show()
@@ -81,7 +80,10 @@ var CountdownView = new MAF.Class({
 			}, scope.beepsTimes[scope.color]);
 		} else {
 			setTimeout(function() {
+				scope.semaphore[scope.colors[scope.color]].hide();
+				scope.color += 1;
 				MAF.application.loadView('view-PlaygroundView');
+				MAF.application.loadView('view-HomeView');
 			}, 1000);
 		}
 
