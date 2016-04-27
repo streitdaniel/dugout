@@ -64,6 +64,7 @@ Dugout_Graphics = function(app) {
             renderBonuses(app.getBonuses());
         }
         app.setNewPosition(players);
+        app.addScore();
     }
     
     function renderPath(players) {

@@ -92,7 +92,7 @@ Dugout_Logic = function(app) {
             bonuses.push({
                 position: {
                     x: Math.random() * 1576 + 100,
-                    y: Math.random() * 800 + 100
+                    y: Math.random() * 700 + 100
                 },
                 type: Math.floor(Math.random() * 5)
             });
