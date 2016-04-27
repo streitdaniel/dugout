@@ -472,8 +472,16 @@ var continueView = function(){
 
 		// click on continue button
 		this.btnContinue = document.getElementById('btn-continue');
-		this.btnContinue.addEventListener('click', function() { 
-			Client.sendReady('');
+		this.btnContinue.addEventListener('click', function() {
+			var input = document.getElementById('input-login');
+			var name = input.value;
+			Client.sendReady(name);
+		});
+		
+		// click on leave game button
+		this.btnExitContinue = document.getElementById('btn-exit-continue');
+		this.btnExitContinue.addEventListener('click', function() { 
+			Client.sendExit();
 		});
 	};
 
