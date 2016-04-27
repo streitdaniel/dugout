@@ -50,6 +50,7 @@ var App = new (function(){
 		continueView.init();
 		
 		connectingView.show();
+		Client.init();
 	};
 	
 	/**
@@ -156,6 +157,10 @@ var Client = new (function(){
 	 */
 	this.send = function(message) {
 		//var message = {event: 'cl_event', clients: [], attrs: {}};
+		if(message && typeof message !== 'string') {
+			message = JSON.stringify(message); // to string
+		}
+		
 		this.room.send(message);
 	};
 	
@@ -198,9 +203,11 @@ var Client = new (function(){
 	 */
 	this.processData = function(event) {
 		var data = event.data;
+		// data = {event: ‘nazev_udalosti‘,  clients: [], attrs: {}}
+		
+		data = JSON.parse(data);  // string to object
 		data.clients = data.clients || [];
 		data.attrs = data.attrs || {};
-		// data = {event: ‘nazev_udalosti‘,  clients: [], attrs: {}}
 		
 		if(data.clients === [] || data.clients.indexOf(App.room.user) > -1) {
 			// ok
@@ -372,8 +379,10 @@ var startView = function(){
 
 		// click on start button
 		this.btnStart = document.getElementById('btn-start');
-		this.btnStart.addEventListener('click', function() { App.clickedStart(); })
-	}
+		this.btnStart.addEventListener('click', function() { 
+			Client.sendStartGame(); 
+		});
+	};
 	
 	return view;
 }();
@@ -393,13 +402,16 @@ var controlsView = function(){
 
 		// click on left button
 		this.btnLeft = document.getElementById('btn-left');
-		this.btnLeft.addEventListener('click', function() { App.clickedLeft(); })
+		this.btnLeft.addEventListener('click', function() {
+			Client.sendTurnLeft(); 
+		});
 
 		// click on right button
 		this.btnRight = document.getElementById('btn-right');
-		this.btnRight.addEventListener('click', function() { App.clickedRight(); })
-
-	}
+		this.btnRight.addEventListener('click', function() { 
+			Client.sendTurnRight(); 
+		});
+	};
 
 	return view;
 
@@ -439,9 +451,10 @@ var continueView = function(){
 
 		// click on continue button
 		this.btnContinue = document.getElementById('btn-continue');
-		this.btnContinue.addEventListener('click', function() { App.clickedContinue(); })
-
-	}
+		this.btnContinue.addEventListener('click', function() { 
+			Client.sendReady('');
+		});
+	};
 
 	return view;
 
