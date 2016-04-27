@@ -23,13 +23,9 @@ var HomeView = new MAF.Class({
 		console.log('[HomeView] initView');
 
 		this.playersTable = [];
-		this.PLAYER_STATE = {
-			EMPTY: 0,
-			CONNECTED: 1,
-			READY: 2
-		};
 
-		this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType);
+		this.emptySlotMessage = 'Waiting for player...';
+		this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType, this);
 	},
 
 	/**
@@ -64,59 +60,10 @@ var HomeView = new MAF.Class({
 	},
 
 	drawTable: function () {
-		var players,
-			i,
-			playersWrapper, rowString, playerState,
+		var i,
+			playersWrapper,
 			row, wormImg, name,
-			colors, emptySlotMessage, numberOfConnectedPlayers;
-
-		emptySlotMessage = 'Waiting for player...';
-
-		//players = dugout.getPlayers();
-		players = [{
-			name: "Player 1",
-			color: "#ed008c",
-			position: {
-				x: 0,
-				y: 0
-			},
-			direction: 0,
-			speed: 2,
-			turning_speed: 3,
-			dead: false,
-			ready: false,
-			score: 0
-		},
-			{
-				name: "Player 3",
-				color: "#ed008c",
-				position: {
-					x: 0,
-					y: 0
-				},
-				direction: 0,
-				speed: 2,
-				turning_speed: 3,
-				dead: false,
-				ready: false,
-				score: 0
-			}, {
-				name: "Player 4",
-				color: "#ed008c",
-				position: {
-					x: 0,
-					y: 0
-				},
-				direction: 0,
-				speed: 2,
-				turning_speed: 3,
-				dead: false,
-				ready: false,
-				score: 0
-			}];
-		numberOfConnectedPlayers = players.length;
-
-		console.log(players);
+			colors;
 
 		colors = ['red', 'green', 'yellow', 'blue'];
 
@@ -130,102 +77,46 @@ var HomeView = new MAF.Class({
 			wormImg = new MAF.element.Image().appendTo(row);
 			wormImg.element.addClass('worm ' + colors[i]);
 
-			name = new MAF.element.Text({});
-			name.element.addClass(playerState);
-			if (i < numberOfConnectedPlayers) {
-				rowString = players[i].name;
-				playerState = players[i].ready === true ? 'ready' : 'connected'
-
-			} else {
-				rowString = emptySlotMessage;
-			}
-			name.setText(rowString);
-			
-			if(playerState) {
-				name.element.addClass(playerState);
-			}
+			name = new MAF.element.Text({
+				data: this.emptySlotMessage
+			});
 			name.appendTo(row);
 
 			this.playersTable.push({
-				state: this.PLAYER_STATE.EMPTY,
 				name: name
 			});
 		}
 		playersWrapper.appendTo(this);
 	},
 
-	afterPlayerConnected: function () {
-		var freeSlotIndex = this.getFirstFreeSlotIndex(),
-			player, name;
+	updateTable: function () {
+		var players, i,	rowString, playerState,
+			row, name, numberOfConnectedPlayers;
 
-		if (freeSlotIndex === -1) {
-			// Room is full
-			console.log('Sorry! Room is full :(');
-			return;
-		}
-
-		player = this.playersTable[freeSlotIndex];
-		name = player.name;
-
-		// set player's state to connected
-		name.setText('Player' + (freeSlotIndex + 1));
-		name.element.addClass('connected');
-		player.state = this.PLAYER_STATE.CONNECTED;
-	},
-
-	afterPlayerReady: function (playerIndex) {
-		// set player's state to ready
-		var player = this.playersTable[playerIndex],
-			freeSlotIndex;
-
-		player.name.element.removeClass('connected');
-		player.name.element.addClass('ready');
-		player.state = this.PLAYER_STATE.READY;
-
-		freeSlotIndex = this.getFirstFreeSlotIndex();
-
-		if (this.isEverybodyReady()) {
-			this.afterAllReady();
-		}
-	},
-
-	afterPlayerDisconnected: function (playerIndex) {
-		var player = this.playersTable[playerIndex];
-
-		player.name.element.removeClass('connected');
-		player.name.element.removeClass('ready');
-		player.name.setText('Waiting for Player' + (playerIndex + 1) + '...');
-		player.state = this.PLAYER_STATE.EMPTY;
-	},
-
-	afterAllReady: function () {
-		console.log('all players are ready!');
-		this.onStartGame();
-	},
-
-	getFirstFreeSlotIndex: function () {
-		var i;
+		players = dugout.getPlayers();
+		numberOfConnectedPlayers = players.length;
 
 		for (i = 0; i < 4; i++) {
-			if (this.playersTable[i].state === this.PLAYER_STATE.EMPTY) {
-				return i;
+			if (i < numberOfConnectedPlayers) {
+				rowString = players[i].name;
+				playerState = players[i].ready === true ? 'ready' : 'connected'
+
+			} else {
+				rowString = this.emptySlotMessage;
+				playerState = null;
 			}
-		}
 
-		// Room is full
-		return -1;
-	},
+			name = this.playersTable[i].name;
+			name.element.removeClass('connected');
+			name.element.removeClass('ready');
+			name.setText(rowString);
 
-	isEverybodyReady: function () {
-		var i;
-
-		for (i = 0; i < 4; i++) {
-			if (this.playersTable[i].state !== this.PLAYER_STATE.READY) {
-				return false;
+			if(playerState) {
+				name.element.addClass(playerState);
 			}
-		}
 
-		return true;
+			name.appendTo(row);
+		}
 	},
 
 	onStartGame: function () {
@@ -237,11 +128,11 @@ var HomeView = new MAF.Class({
 		var key = event.payload.key;
 
 		if (key === 'dugout:countdown') {
-			// this.onStartGame();
-			MAF.application.loadView('view-CountdownView');
+			this.onStartGame();
 
 		} else if (key === 'dugout:refresh_players') {
-			console.log('TODO: refresh players table');
+			console.log('updating players table...');
+			this.updateTable();
 		}
 	},
 
@@ -270,8 +161,6 @@ var HomeView = new MAF.Class({
 	 */
 	focusView: function () {
 		console.log('[HomeView] focusView');
-
-		MAF.messages.store('dugout:refresh_players', '');
 	},
 
 	/**
