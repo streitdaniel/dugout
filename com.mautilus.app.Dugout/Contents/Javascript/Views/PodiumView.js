@@ -105,6 +105,7 @@ var PodiumView = new MAF.Class({
 	 */
 	focusView: function() {
 		console.log('[PodiumView] focusView');
+        dugout.restartGame();
 		dugout.audio.playSound(dugout.audio.APPLAUSE_SOUND);
 	},
 	

@@ -27,6 +27,7 @@ Dugout = function() {
     this.isSlimeAt = isSlimeAt;
     this.addScore = addScore;
     this.startDigging = startDigging;
+    this.restartGame = restartGame;
     this.CONST_COLORS_NAMES = ['blue', 'green', 'red', 'yellow'];
 
     function run() {
