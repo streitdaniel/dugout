@@ -56,7 +56,7 @@ var HomeView = new MAF.Class({
 				left: 1530,
 				width: 275
 			}
-		}).setSource(QRCode.get('192.168.11.101:8080'));
+		}).setSource(QRCode.get(dugout.getQRCode()));
 		qrCode.appendTo(this);
 
 		logo.appendTo(this);

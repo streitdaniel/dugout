@@ -64,6 +64,8 @@ Dugout = function() {
                         log('user has left', payload.user);
                     return;
                 case 'onData':
+                    console.log("########## DATA #########");
+                    console.log(payload);
                     onData(payload.user, payload.data);
                     break;
                 default:
@@ -90,7 +92,7 @@ Dugout = function() {
     }
 
     function onJoined(payload) {
-        addPlayer(payload.user);
+        clJoin(payload.user);
     }
 
     function onHasLeft(payload) {
