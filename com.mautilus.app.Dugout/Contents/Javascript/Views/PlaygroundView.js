@@ -22,7 +22,7 @@ var PlaygroundView = new MAF.Class({
 	 */
 	initView: function() {
 		console.log('[PlaygroundView] initView');
-		this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType, this);
+		this.onBroadcastListener = this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType, this);
 	},
 	
 	/**
@@ -162,6 +162,8 @@ var PlaygroundView = new MAF.Class({
 	 */
 	destroyView: function() {
 		console.log('[PlaygroundView] destroyView');
+		this.onBroadcastListener.unsubscribeFrom(MAF.messages, MAF.messages.eventType);
+		delete this.onBroadcastListener;
 	},
 
 	/**
