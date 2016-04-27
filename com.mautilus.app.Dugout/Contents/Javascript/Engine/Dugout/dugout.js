@@ -163,6 +163,9 @@ Dugout = function() {
         }
         playersLength--;
         sendEvent("refresh_players");
+        if (playersLength == 0) {
+            endGame();
+        }
     }
 
     function getQRCode() {
@@ -346,6 +349,7 @@ Dugout = function() {
         playersAlive = playersLength;
         sendMessage('tv_show_controls', playing, {});
         graphics.startRendering();
+        logic.startAddingBonuses();
     }
 
     function restartGame() {
@@ -362,6 +366,8 @@ Dugout = function() {
     }
 
     function endGame() {
+        logic.stopAddingBonuses();
+        graphics.stopRendering();
         sendEvent("end_game");
     }
 

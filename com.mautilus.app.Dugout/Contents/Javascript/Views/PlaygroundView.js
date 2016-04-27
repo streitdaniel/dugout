@@ -219,6 +219,9 @@ var PlaygroundView = new MAF.Class({
 				this.updateScore(i + 1, lt[player.color], player.name, Math.round(player.score / 10));
 			}
 		}
+		else if (key === 'dugout:end_game') {
+			MAF.application.loadView('view-PodiumView');
+		}
 	}
 
 });

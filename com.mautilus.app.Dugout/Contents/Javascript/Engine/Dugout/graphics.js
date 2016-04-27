@@ -40,12 +40,17 @@ Dugout_Graphics = function(app) {
     this.isSlimeAt = isSlimeAt;
     this.renderFrame = renderFrame;
     this.startRendering = startRendering;
+    this.stopRendering = stopRendering;
 
     prepareCanvases();
 
     function startRendering() {
         rendering = true;
         getAnimationFrame(render);
+    }
+
+    function stopRendering() {
+        rendering = false;
     }
 
     function render() {
