@@ -206,15 +206,18 @@ var Client = new (function(){
 		var data = event.data;
 		// data = {event: ‘nazev_udalosti‘,  clients: [], attrs: {}}
 		
-		data = JSON.parse(data);  // string to object
+		if(typeof data === 'string') {
+			data = JSON.parse(data);  // string to object
+		}
 		data.clients = data.clients || [];
 		data.attrs = data.attrs || {};
 		
-		if(data.clients === [] || data.clients.indexOf(App.room.user) > -1) {
+		if((data.clients.length === 0 || data.clients.indexOf(Client.room.user) > -1) && event.user != Client.room.user) {
 			// ok
+			console.log('FOR ME: ', data);
 		} else {
 			// not for me
-			console.log('NOT FOR ME: ' + event.data);
+			console.log('NOT FOR ME: ', data);
 			return false;
 		}
 		
