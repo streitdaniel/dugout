@@ -38,6 +38,8 @@ Dugout_Graphics = function(app) {
 
     this.getVisibleCanvases = getVisibleCanvases;
     this.isSlimeAt = isSlimeAt;
+    this.renderFrame = renderFrame;
+    this.startRendering = startRendering;
 
     prepareCanvases();
 
@@ -146,8 +148,10 @@ Dugout_Graphics = function(app) {
         var canvasStyles = { position: 'absolute', top: 130, left: 70, width: 1780, height: 900 };
         pathCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         pathContext = pathCanvas.element.getContext('2d');
+        pathContext.lineWidth = 20.0;
         slimeCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         slimeContext = slimeCanvas.element.getContext('2d');
+        slimeContext.lineWidth = 10.0;
         wormCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         wormContext = wormCanvas.element.getContext('2d');
         bonusCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });

@@ -124,14 +124,12 @@ var HomeView = new MAF.Class({
 	},
 
 	onBroadcast: function (event) {
-		console.log('[HomeView] Broadcast recieved');
 		var key = event.payload.key;
 
 		if (key === 'dugout:countdown') {
 			this.onStartGame();
 
 		} else if (key === 'dugout:refresh_players') {
-			console.log('updating players table...');
 			this.updateTable();
 		}
 	},

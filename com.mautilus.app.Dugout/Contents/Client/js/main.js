@@ -397,7 +397,7 @@ var startView = function(){
  */
 var controlsView = function(){
 	
-	var view = new View('controls');
+	var view = new View('controls'), turningLeft = false, turningRight = false;
 
 	/**
 	 * To init
@@ -407,16 +407,31 @@ var controlsView = function(){
 
 		// click on left button
 		this.btnLeft = document.getElementById('btn-left');
-		this.btnLeft.addEventListener('click', function() {
-			Client.sendTurnLeft(); 
+		this.btnLeft.addEventListener('touchstart', function() {
+			turningLeft = true;
+		});
+		this.btnLeft.addEventListener('touchend', function() {
+			turningLeft = false;
 		});
 
 		// click on right button
 		this.btnRight = document.getElementById('btn-right');
-		this.btnRight.addEventListener('click', function() { 
-			Client.sendTurnRight(); 
+		this.btnRight.addEventListener('touchstart', function() {
+			turningRight = true;
+		});
+		this.btnRight.addEventListener('touchend', function() {
+			turningRight = false;
 		});
 	};
+
+	setInterval(function() {
+		if (turningLeft && !turningRight) {
+			Client.sendTurnLeft();
+		}
+		else if (!turningLeft && turningRight) {
+			Client.sendTurnRight();
+		}
+	}, 1000 / 30);
 
 	return view;
 

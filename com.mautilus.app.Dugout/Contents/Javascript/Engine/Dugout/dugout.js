@@ -140,7 +140,7 @@ Dugout = function() {
     function addPlayer(user) {
         players[user] = {
             name: "Player " + (playersLength + 1),
-            color: CONST_COLORS[players.length],
+            color: CONST_COLORS[playersLength],
             position: {
                 x: 0,
                 y: 0
@@ -335,6 +335,7 @@ Dugout = function() {
     function startTheGame() {
         countdown();
         randomlyPositionPlayers();
+        graphics.renderFrame();
     }
 
     function countdown() {
@@ -348,6 +349,7 @@ Dugout = function() {
         }
         playersAlive = playersLength;
         sendMessage('tv_show_controls', playing, {});
+        graphics.startRendering();
     }
 
     function restartGame() {

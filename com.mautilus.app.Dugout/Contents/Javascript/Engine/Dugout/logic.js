@@ -28,6 +28,7 @@ Dugout_Logic = function(app) {
     }
     
     function detectDeaths(players) {
+        return;
         var predictedX, predictedY, player, key;
         for (key in players) {
             player = players[key];
