@@ -160,6 +160,7 @@ var Client = new (function(){
 			message = JSON.stringify(message); // to string
 		}
 		
+		console.log("SEND: " + message);
 		this.room.send(message);
 	};
 	
@@ -212,6 +213,7 @@ var Client = new (function(){
 			// ok
 		} else {
 			// not for me
+			console.log('NOT FOR ME: ' + event.data);
 			return false;
 		}
 		
