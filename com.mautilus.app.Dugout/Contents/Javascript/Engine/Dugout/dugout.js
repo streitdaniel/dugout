@@ -7,6 +7,7 @@ Dugout = function() {
         logic = new Dugout_Logic(this),
         players = {},
         playersLength = 0,
+        playersAlive = 0,
         allPlayersReady = false,
         room,
         qrCodeURL;
@@ -137,7 +138,8 @@ Dugout = function() {
             speed: CONST_BASE_SPEED,
             turning_speed: CONST_TURNING_SPEED,
             dead: false,
-            ready: false
+            ready: false,
+            score: 0
         };
         playersLength++;
     }
@@ -183,7 +185,12 @@ Dugout = function() {
 
     function killPlayer(key) {
         players[key].dead = true;
+        audio.playSound(audio.DEATH_SOUND);
         sendMessage('tv_death', key);
+        playersAlive--;
+        if (playersAlive < 2) {
+            endGame();
+        }
     }
 
     function adjustPlayersAbility(key, ability, diff, others) {
@@ -244,7 +251,10 @@ Dugout = function() {
                 break;
             }
         }
-        if (allReady) {
+        if (playersLength === 4 && allReady) {
+            startTheGame();
+        }
+        else if (allReady) {
             everyoneReady();
         }
     }
@@ -273,6 +283,7 @@ Dugout = function() {
 
     function startTheGame() {
         countdown();
+        randomlyPositionPlayers();
         setTimeout(function() {
             startDigging();
         }, 4000);
@@ -287,15 +298,32 @@ Dugout = function() {
         for (key in players) {
             playing.push(key);
         }
+        playersAlive = playersLength;
         sendMessage('tv_show_controls', playing, {});
     }
 
     function restartGame() {
         var key, playing = [];
         for (key in players) {
+            players[key].ready = false;
+            players[key].speed = CONST_BASE_SPEED;
+            players[key].turning_speed = CONST_TURNING_SPEED;
+            players[key].dead = false;
+            players[key].score = 0;
             playing.push(key);
         }
         sendMessage('tv_continue', playing, {});
+    }
+
+    function endGame() {
+
+    }
+
+    function randomlyPositionPlayers() {
+        var k, keys = [];
+        for (k in players) {
+            
+        }
     }
 
 };
