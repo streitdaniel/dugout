@@ -156,7 +156,7 @@ var PodiumView = new MAF.Class({
 		// show score
 		this.textScore = new MAF.element.Text({
 			totalLines: 1,
-			data: score
+			data: Math.round(score / 10)
 		});
 		this.textScore.element.addClass('podiumText');
 		this.textScore.element.addClass('score');
