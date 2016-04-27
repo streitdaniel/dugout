@@ -14,6 +14,7 @@ Dugout = function() {
     this.getBonuses = getBonuses;
     this.renderBonuses = renderBonuses;
     this.setNewPosition = setNewPosition;
+    this.getVisibleCanvases = getVisibleCanvases;
     this.CONST_COLORS_NAMES = ['blue', 'green', 'red', 'yellow'];
 
     function run() {
@@ -134,6 +135,10 @@ Dugout = function() {
 
     function renderBonuses() {
         return logic.renderBonuses();
+    }
+
+    function getVisibleCanvases() {
+        return graphics.getVisibleCanvases();
     }
 
 };

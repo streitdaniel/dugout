@@ -36,6 +36,8 @@ Dugout_Graphics = function(app) {
         imagesToLoad,
         getAnimationFrame = requestAnimationFrame || webkitRequestAnimationFrame || mozRequestAnimationFrame || msRequestAnimationFrame || oRequestAnimationFrame;
 
+    this.getVisibleCanvases = getVisibleCanvases;
+
     prepareCanvases();
 
     function startRendering() {
@@ -127,6 +129,10 @@ Dugout_Graphics = function(app) {
             players[key].newPosition = { x: x, y: y };
         }
         return players;
+    }
+
+    function getVisibleCanvases() {
+        return [pathCanvas, slimeCanvas, wormCanvas, bonusCanvas];
     }
 
     function prepareCanvases() {
@@ -236,14 +242,14 @@ Dugout_Graphics = function(app) {
                 return "Images/ingame/bonus_score.png";
             case HEAL:
                 return "Images/ingame/bonus_lekarna.png";
-            case BLUE_WORM_DEAD:
-                return "Images/ingame/hrobecek_blue.png";
-            case GREEN_WORM_DEAD:
-                return "Images/ingame/hrobecek_green.png";
             case RED_WORM_DEAD:
                 return "Images/ingame/hrobecek_red.png";
+            case GREEN_WORM_DEAD:
+                return "Images/ingame/hrobecek_green.png";
             case YELLOW_WORM_DEAD:
                 return "Images/ingame/hrobecek_yellow.png";
+            case BLUE_WORM_DEAD:
+                return "Images/ingame/hrobecek_blue.png";
 
         }
     }
