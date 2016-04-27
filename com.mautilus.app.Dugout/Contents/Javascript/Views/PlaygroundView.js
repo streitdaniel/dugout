@@ -78,7 +78,7 @@ var PlaygroundView = new MAF.Class({
 
 		var canvases = dugout.getVisibleCanvases();
 
-		// get and show play play canvases
+		// get and show play canvases
 		for (var i in canvases) {
 			if (0 == i) {
 				canvases[i].element.addClass('canvasFirst');
@@ -136,6 +136,23 @@ var PlaygroundView = new MAF.Class({
 	 */
 	hideView: function() {
 		console.log('[PlaygroundView] hideView');
+
+		for (var index in dugout.CONST_COLORS_NAMES) {
+			if (this.textName[dugout.CONST_COLORS_NAMES[index]]) {
+				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position1');
+				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position2');
+				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position3');
+				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position4');
+				this.textName[dugout.CONST_COLORS_NAMES[index]].hide();
+				this.wormsScore[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position1');
+				this.wormsScore[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position2');
+				this.wormsScore[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position3');
+				this.wormsScore[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position4');
+				this.wormsScore[[dugout.CONST_COLORS_NAMES[index]]].hide();
+			}
+
+		}
+
 	},
 	
 	/**
@@ -190,11 +207,13 @@ var PlaygroundView = new MAF.Class({
 		this.wormsScore[color].show();
 
 		// show name and score
-		this.textName[color] = new MAF.element.Text({
-			totalLines: 1,
-			data: name + ' ' + score
-		});
+		if (!this.textName[color]) {
+			this.textName[color] = new MAF.element.Text({
+				totalLines: 1,
+			});
+		}
 
+		this.textName[color].setText(name + ' ' + score);
 		this.textName[color].element.addClass('ingameText');
 		this.textName[color].element.addClass('name');
 		this.textName[color].element.addClass('position' + position);
