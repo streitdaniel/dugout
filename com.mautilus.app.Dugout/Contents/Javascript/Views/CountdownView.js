@@ -83,7 +83,6 @@ var CountdownView = new MAF.Class({
 				scope.semaphore[scope.colors[scope.color]].hide();
 				scope.color += 1;
 				MAF.application.loadView('view-PlaygroundView');
-				MAF.application.loadView('view-HomeView');
 			}, 1000);
 		}
 
