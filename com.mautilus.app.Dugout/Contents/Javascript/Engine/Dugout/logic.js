@@ -29,13 +29,12 @@ Dugout_Logic = function(app) {
     }
     
     function detectDeaths(players) {
-        return;
         var predictedX, predictedY, player, key;
         for (key in players) {
             player = players[key];
             if (player.dead) { continue; }
             predictedX = player.position.x + Math.sin(player.direction) * player.speed;
-            predictedY = player.position.y + Math.cos(player.direction) * player.speed;
+            predictedY = player.position.y - Math.cos(player.direction) * player.speed;
             if (predictedX < 1) predictedX = 1;
             if (predictedX > 1779) predictedX = 1779;
             if (predictedY < 1) predictedY = 1;

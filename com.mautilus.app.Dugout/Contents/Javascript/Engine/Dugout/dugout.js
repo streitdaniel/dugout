@@ -132,7 +132,6 @@ Dugout = function() {
     }
 
     function sendEvent(event) {
-        console.log(event);
         MAF.messages.store("dugout:" + event, event);
     }
 

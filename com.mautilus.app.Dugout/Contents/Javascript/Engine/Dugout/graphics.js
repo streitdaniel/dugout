@@ -161,7 +161,7 @@ Dugout_Graphics = function(app) {
         slimeCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         slimeCanvas.setStyle("opacity", "0.4");
         slimeContext = slimeCanvas.element.getContext('2d');
-        slimeContext.lineWidth = 2.0;
+        slimeContext.lineWidth = 10.0;
         wormCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         wormContext = wormCanvas.element.getContext('2d');
         bonusCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
