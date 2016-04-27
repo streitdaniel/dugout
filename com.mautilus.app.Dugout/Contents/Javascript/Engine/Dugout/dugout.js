@@ -126,6 +126,10 @@ Dugout = function() {
         room.send({ event: event, clients: key, attrs: data });
     }
 
+    function sendEvent(event) {
+        MAF.messages.store("dugout:" + event, event);
+    }
+
     function addPlayer(user) {
         players[user] = {
             name: "Player " + (playersLength + 1),
@@ -142,6 +146,7 @@ Dugout = function() {
             score: 0
         };
         playersLength++;
+        sendEvent("refresh_players");
     }
 
     function removePlayer(user) {
@@ -153,6 +158,7 @@ Dugout = function() {
             i++;
         }
         playersLength--;
+        sendEvent("refresh_players");
     }
 
     function getQRCode() {
@@ -284,13 +290,10 @@ Dugout = function() {
     function startTheGame() {
         countdown();
         randomlyPositionPlayers();
-        setTimeout(function() {
-            startDigging();
-        }, 4000);
     }
 
     function countdown() {
-
+        sendEvent("countdown");
     }
 
     function startDigging() {
@@ -316,14 +319,58 @@ Dugout = function() {
     }
 
     function endGame() {
-
+        sendEvent("end_game");
     }
 
     function randomlyPositionPlayers() {
-        var k, keys = [];
+        var i, k, keys = [], keysLength, x, y, direction;
         for (k in players) {
-            
+            keys.push(k);
         }
+        shuffle(keys);
+        keysLength = keys.length;
+        for (i = 0; i < keysLength; i++) {
+            x = Math.random() * 755;
+            y = Math.random() * 350;
+            direction = Math.random() * Math.PI / 2;
+            if (i == 0) {
+                direction += Math.PI / 2;
+            }
+            else if (i == 1) {
+                x += 890;
+                direction += Math.PI;
+            }
+            else if (i == 2) {
+                y += 450;
+            }
+            else if (i == 3) {
+                x += 890;
+                y += 450;
+                direction += 3 * Math.PI / 2;
+            }
+            players[keys[i]].position.x = x;
+            players[keys[i]].position.y = y;
+            players[keys[i]].position.direction = direction;
+        }
+    }
+
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
     }
 
 };
