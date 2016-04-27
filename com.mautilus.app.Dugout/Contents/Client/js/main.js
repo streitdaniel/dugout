@@ -48,6 +48,8 @@ var App = new (function(){
 		deathView.init();
 		scoreView.init();
 		continueView.init();
+		
+		connectingView.show();
 	};
 	
 	/**
