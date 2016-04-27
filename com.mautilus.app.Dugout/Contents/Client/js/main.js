@@ -11,6 +11,14 @@ Element.prototype.removeClass = function(className) {
 	this.className = this.className.replace(className, '');
 };
 
+/**
+ * Detect Touch Screen
+ * @returns {Boolean}
+ */
+function isTouchDevice() {
+	return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
+}
+
 
 
 /**
@@ -223,6 +231,7 @@ var Client = new (function(){
 				break;
 			default:
 				console.log('Error unknown event :(');
+				break;
 		}
 	};
 	
