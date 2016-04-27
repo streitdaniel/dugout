@@ -22,6 +22,7 @@ var PlaygroundView = new MAF.Class({
 	 */
 	initView: function() {
 		console.log('[PlaygroundView] initView');
+		this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType, this);
 	},
 	
 	/**
@@ -156,8 +157,6 @@ var PlaygroundView = new MAF.Class({
 		this.showWormScore(2, 'green', 'Martin', 12);
 		this.showWormScore(3, 'yellow', 'Petr', 8);
 		this.showWormScore(4, 'blue', 'Radim', 15);
-
-		this.updateScore(1, 'red', 'Ondra', 10);
 	},
 
 	updateScore: function(position, color, name, score) {
@@ -194,5 +193,23 @@ var PlaygroundView = new MAF.Class({
 		this.textName[color].show();
 
 	},
+
+	onBroadcast: function (event) {
+		var key = event.payload.key, playersLength, players, i, player, lt = {
+			'#ed008c': 'red',
+			'#8cc63e': 'green',
+			'#fcb040': 'yellow',
+			'#008ad2': 'blue'
+		};
+
+		if (key === 'dugout:refresh_players') {
+			players = dugout.getOrderedPlayers();
+			playersLength = players.length;
+			for (i = 0; i < playersLength; i++) {
+				player = players[i];
+				this.updateScore(i + 1, lt[player.color], player.name, player.score);
+			}
+		}
+	}
 
 });
