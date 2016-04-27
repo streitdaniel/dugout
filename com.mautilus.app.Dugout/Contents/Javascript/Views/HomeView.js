@@ -90,16 +90,22 @@ var HomeView = new MAF.Class({
 	},
 
 	updateTable: function () {
-		var players, i, rowString, playerState,
+		var players, playersArray, i, rowString, playerState,
 			row, name, numberOfConnectedPlayers;
 
 		players = dugout.getPlayers();
-		numberOfConnectedPlayers = players.length;
+		playersArray = [];
+
+		for (var key in players) {
+			playersArray.push(players[key]);
+		}
+
+		numberOfConnectedPlayers = playersArray.length;
 
 		for (i = 0; i < 4; i++) {
 			if (i < numberOfConnectedPlayers) {
-				rowString = players[i].name;
-				playerState = players[i].ready === true ? 'ready' : 'connected'
+				rowString = playersArray[i].name;
+				playerState = playersArray[i].ready === true ? 'ready' : 'connected'
 
 			} else {
 				rowString = this.emptySlotMessage;
