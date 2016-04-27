@@ -84,7 +84,7 @@ Dugout_Graphics = function(app) {
         var key, player;
         for (key in players) {
             player = players[key];
-            slimeContext.strokeStyle.color = player.color;
+            slimeContext.strokeStyle = player.color;
             slimeContext.beginPath();
             slimeContext.moveTo(player.position.x, player.position.y);
             slimeContext.lineTo(player.newPosition.x, player.newPosition.y);
@@ -150,6 +150,7 @@ Dugout_Graphics = function(app) {
         pathContext = pathCanvas.element.getContext('2d');
         pathContext.lineWidth = 20.0;
         slimeCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
+        slimeCanvas.setStyle("opacity", "0.4");
         slimeContext = slimeCanvas.element.getContext('2d');
         slimeContext.lineWidth = 10.0;
         wormCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
