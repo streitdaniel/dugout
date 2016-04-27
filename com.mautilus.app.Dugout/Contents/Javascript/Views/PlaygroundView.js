@@ -162,7 +162,7 @@ var PlaygroundView = new MAF.Class({
 		for (var i in players) {
 
 			// show worms and name
-			this.showWormScore(players[i].position, lt[players[i].color], players[i].name, players[i].score);
+			this.showWormScore((parseInt(i, 10) + 1), lt[players[i].color], players[i].name, players[i].score);
 
 		}
 
