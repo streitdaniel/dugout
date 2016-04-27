@@ -14,6 +14,7 @@ var CountdownView = new MAF.Class({
 		this.parent();
 
 		this.colors = ['red', 'orange', 'green'];
+		this.beepsTimes = [2100, 1150, 3000];
 		this.color = 0;
 		this.semaphore = {};
 	},
@@ -52,6 +53,7 @@ var CountdownView = new MAF.Class({
 
 		}
 
+		//dugout.audio.playSound(dugout.audio.DEATH_SOUND);
 		dugout.audio.playSound(dugout.audio.COUNTDOWN_SOUND);
 	},
 
@@ -75,7 +77,7 @@ var CountdownView = new MAF.Class({
 			scope.semaphore[scope.colors[scope.color]].hide();
 			scope.color += 1;
 			scope.updateView();
-		}, 2000)
+		}, scope.beepsTimes[scope.color]);
 		
 	},
 	
