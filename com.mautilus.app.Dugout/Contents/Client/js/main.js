@@ -103,51 +103,50 @@ var Client = new (function(){
 	 */
 	this.init = function() {
 		this.room = new MAF.Room();
-		
 		// onConnected
-		room.addEventListener('connected', function (event) {
-			console.log('[Room] i has connected', event.user);
+		this.room.addEventListener('connected', function (event) {
+			console.log('[Room] i has connected: ' + event.user + ", my user id: " + Client.room.user);
 		});
 		
 		// onDisconnected
-		room.addEventListener('disconnected', function (event) {
-			console.log('[Room] onDisconnected', event.user);
+		this.room.addEventListener('disconnected', function (event) {
+			console.log('[Room] onDisconnected: '+ event.user + ", my user id: " + Client.room.user);
 			var d = event.data;
 		});
 		
 		// onCreated
-		room.addEventListener('created', function (event) {
-			console.log('[Room] onCreated', event.user);
+		this.room.addEventListener('created', function (event) {
+			console.log('[Room] onCreated: '+ event.user + ", my user id: " + Client.room.user);
 		});
 		
 		// onDestroyed
-		room.addEventListener('destroyed', function (event) {
-			console.log('[Room] onDestroyed', event.user);
+		this.room.addEventListener('destroyed', function (event) {
+			console.log('[Room] onDestroyed:'+ event.user + ", my user id: " + Client.room.user);
 		});
 		
 		// onError
-		room.addEventListener('error', function (event) {
-			console.log('[Room] onError', event.user);
+		this.room.addEventListener('error', function (event) {
+			console.log('[Room] onError:' + event.user + ", my user id: " + Client.room.user);
 		});
 		
 		// onJoined
-		room.addEventListener('joined', function (event) {
-			console.log('[Room] user joined', event.user);
+		this.room.addEventListener('joined', function (event) {
+			console.log('[Room] user joined: ' + event.user + ", my user id: " + Client.room.user);
 		});
 		
 		// onHasLeft
-		room.addEventListener('hasLeft', function (event) {
-			console.log('[Room] user left', event.user);
+		this.room.addEventListener('hasLeft', function (event) {
+			console.log('[Room] user left:' + event.user + ", my user id: " + Client.room.user);
 		});
 		
 		// onData
-		room.addEventListener('data', function (event) {
-			Client.processData(event);
+		this.room.addEventListener('data', function (event) {
+			Client.processData(event + ", my user id: " + Client.room.user);
 		});
 		
 		window.addEventListener('unload', function (event) {
-			this.room.destroy();
-			this.room = null;
+			Client.room.destroy();
+			Client.room = null;
 		}, false);
 	};
 	
