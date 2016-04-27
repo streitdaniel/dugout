@@ -399,6 +399,19 @@ Theme.set({
 	'canvasFirst': {
 		styles: {
 		}
-	}
+	},
+
+	CountdownView: {
+		styles: {
+			backgroundImage: 'url("./apps/com.mautilus.app.Dugout/Contents/Images/splash_bg.png")'
+		}
+	},
+
+	'imgSemaphore': {
+		styles: {
+			left: '807px',
+			top: '277px'
+		}
+	},
 	
 });	

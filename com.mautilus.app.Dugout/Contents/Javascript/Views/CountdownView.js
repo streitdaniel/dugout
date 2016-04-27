@@ -2,16 +2,20 @@
  * Countdown view
  * 
  * @class CountdownView
- * @extends MAF.system.SidebarView
+ * @extends MAF.system.FullscreenView
  */
 var CountdownView = new MAF.Class({
 	ClassName: 'CountdownView',
 
-	Extends: MAF.system.SidebarView,
+	Extends: MAF.system.FullscreenView,
 
 	initialize: function () {
 		console.log('[CountdownView] initialize');
 		this.parent();
+
+		this.colors = ['red', 'orange', 'green'];
+		this.color = 0;
+		this.semaphore = {};
 	},
 
 	/**
@@ -30,6 +34,25 @@ var CountdownView = new MAF.Class({
 	 */
 	createView: function () {
 		console.log('[CountdownView] createView');
+
+		for (var i in this.colors) {
+			// assign color
+			var color = this.colors[i];
+
+			this.semaphore[color] = new MAF.element.Image({
+				autoShow: false,
+				hideWhileLoading: true,
+				src: '/Images/semaphore_' + color + '.png'
+			});
+
+			this.semaphore[color].appendTo(this);
+			// add basic class
+			this.semaphore[color].element.addClass('imgSemaphore');
+			//this.semaphore[color].show();
+
+		}
+
+		dugout.audio.playSound(dugout.audio.COUNTDOWN_SOUND);
 	},
 
 	/**
@@ -39,6 +62,21 @@ var CountdownView = new MAF.Class({
 	 */
 	updateView: function () {
 		console.log('[CountdownView] updateView');
+
+		this.color = (this.color >= 3) ? 0 : this.color ;
+		console.log('COLOR NO: ' + this.color);
+		console.log('COLOR NAME: ' + this.colors[this.color]);
+		//dugout.audio.playSound(dugout.audio.COUNTDOWN_SOUND);
+
+		this.semaphore[this.colors[this.color]].show()
+
+		var scope = this;
+		setTimeout(function() {
+			scope.semaphore[scope.colors[scope.color]].hide();
+			scope.color += 1;
+			scope.updateView();
+		}, 2000)
+		
 	},
 	
 	/**
