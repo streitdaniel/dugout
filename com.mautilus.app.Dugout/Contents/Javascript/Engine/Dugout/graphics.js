@@ -37,6 +37,7 @@ Dugout_Graphics = function(app) {
         getAnimationFrame = requestAnimationFrame || webkitRequestAnimationFrame || mozRequestAnimationFrame || msRequestAnimationFrame || oRequestAnimationFrame;
 
     this.getVisibleCanvases = getVisibleCanvases;
+    this.isSlimeAt = isSlimeAt;
 
     prepareCanvases();
 
@@ -50,6 +51,7 @@ Dugout_Graphics = function(app) {
             getAnimationFrame(render);
         }
         renderFrame();
+        app.detectCollisions();
     }
 
     function renderFrame() {
@@ -133,6 +135,10 @@ Dugout_Graphics = function(app) {
 
     function getVisibleCanvases() {
         return [pathCanvas, slimeCanvas, wormCanvas, bonusCanvas];
+    }
+
+    function isSlimeAt(x, y) {
+        return (slimeContext.getImageData(x, y, 1, 1).data[4] < 64);
     }
 
     function prepareCanvases() {

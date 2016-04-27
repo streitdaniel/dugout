@@ -1,5 +1,6 @@
 Dugout = function() {
     var CONST_BASE_SPEED = 2,
+        CONST_TURNING_SPEED = 3,
         CONST_COLORS = ['#ed008c', '#8cc63e', '#fcb040', '#008ad2'],
         audio = new Dugout_Audio(this),
         graphics = new Dugout_Graphics(this),
@@ -15,6 +16,10 @@ Dugout = function() {
     this.renderBonuses = renderBonuses;
     this.setNewPosition = setNewPosition;
     this.getVisibleCanvases = getVisibleCanvases;
+    this.detectCollisions = detectCollisions;
+    this.killPlayer = killPlayer;
+    this.adjustPlayersAbility = adjustPlayersAbility;
+    this.isSlimeAt = isSlimeAt;
     this.CONST_COLORS_NAMES = ['blue', 'green', 'red', 'yellow'];
 
     function run() {
@@ -100,6 +105,7 @@ Dugout = function() {
             },
             direction: 0,
             speed: CONST_BASE_SPEED,
+            turning_speed: CONST_TURNING_SPEED,
             dead: false
         };
     }
@@ -139,6 +145,41 @@ Dugout = function() {
 
     function getVisibleCanvases() {
         return graphics.getVisibleCanvases();
+    }
+
+    function detectCollisions() {
+        logic.detectDeaths(players);
+        logic.detectBonuses(players);
+    }
+
+    function killPlayer(key) {
+        players[key].dead = true;
+    }
+
+    function adjustPlayersAbility(key, ability, diff, others) {
+        var k;
+        if (!others) {
+            players[key][ability] += diff;
+        }
+        else {
+            for (k in players) {
+                if (k === key) { continue; }
+                players[k][ability] += diff;
+            }
+        }
+    }
+
+    function isSlimeAt(x, y) {
+        return graphics.isSlimeAt(x, y);
+    }
+
+    function addScore() {
+        var key;
+        for (key in players) {
+            if (!players[key].dead) {
+                players[key].score += 1;
+            }
+        }
     }
 
 };
