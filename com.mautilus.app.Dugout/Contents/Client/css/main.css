@@ -149,6 +149,16 @@ button {
 	-webkit-box-sizing: content-box;
 }
 
+/**
+* start scene
+*/
+#start {
+	width: auto;
+	height: auto;
+	padding: 20px 20px 0px;
+	text-align: center;
+}
 
-
-
+#start #btn-start {
+	padding-top: 200px;
+}

@@ -319,6 +319,18 @@ var loginView = function(){
 var startView = function(){
 	
 	var view = new View('start');
+
+	/**
+	 * To init
+	 */
+	view.init = function() {
+		this.el = document.getElementById(this.id) || null;
+
+		// click on start button
+		this.btnStart = document.getElementById('btn-start');
+		this.btnStart.addEventListener('click', function() { App.clickedStart(); })
+	}
+	
 	return view;
 }();
 
@@ -338,6 +350,7 @@ var deathView = function(){
 	
 	var view = new View('death');
 	return view;
+
 }();
 
 /**
