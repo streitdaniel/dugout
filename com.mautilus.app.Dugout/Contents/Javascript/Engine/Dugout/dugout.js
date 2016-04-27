@@ -1,5 +1,5 @@
 Dugout = function() {
-    var CONST_BASE_SPEED = 2,
+    var CONST_BASE_SPEED = 8,
         CONST_TURNING_SPEED = 3,
         CONST_COLORS = ['#ed008c', '#8cc63e', '#fcb040', '#008ad2'],
         audio = new Dugout_Audio(this),
@@ -163,6 +163,9 @@ Dugout = function() {
         }
         playersLength--;
         sendEvent("refresh_players");
+        if (playersLength == 0) {
+            endGame();
+        }
     }
 
     function getQRCode() {
@@ -346,6 +349,7 @@ Dugout = function() {
         playersAlive = playersLength;
         sendMessage('tv_show_controls', playing, {});
         graphics.startRendering();
+        logic.startAddingBonuses();
     }
 
     function restartGame() {
@@ -362,6 +366,8 @@ Dugout = function() {
     }
 
     function endGame() {
+        logic.stopAddingBonuses();
+        graphics.stopRendering();
         sendEvent("end_game");
     }
 

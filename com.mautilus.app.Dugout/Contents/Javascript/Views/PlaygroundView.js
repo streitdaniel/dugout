@@ -152,11 +152,20 @@ var PlaygroundView = new MAF.Class({
 	 */
 	showScores: function() {
 
-		// show worms score
-		this.showWormScore(1, 'red', 'Ondra', 10);
-		this.showWormScore(2, 'green', 'Martin', 12);
-		this.showWormScore(3, 'yellow', 'Petr', 8);
-		this.showWormScore(4, 'blue', 'Radim', 15);
+		var players = dugout.getOrderedPlayers(), lt = {
+			'#ed008c': 'red',
+			'#8cc63e': 'green',
+			'#fcb040': 'yellow',
+			'#008ad2': 'blue'
+		};
+
+		for (var i in players) {
+
+			// show worms and name
+			this.showWormScore((parseInt(i, 10) + 1), lt[players[i].color], players[i].name, players[i].score);
+
+		}
+
 	},
 
 	updateScore: function(position, color, name, score) {
@@ -173,7 +182,7 @@ var PlaygroundView = new MAF.Class({
 	 * @param {Integer} - score
 	 */
 	showWormScore: function(position, color, name, score) {
-
+		console.log(color);
 		// assign css style to worm
 		this.wormsScore[color].element.addClass('position' + position);
 
@@ -207,8 +216,11 @@ var PlaygroundView = new MAF.Class({
 			playersLength = players.length;
 			for (i = 0; i < playersLength; i++) {
 				player = players[i];
-				this.updateScore(i + 1, lt[player.color], player.name, player.score);
+				this.updateScore(i + 1, lt[player.color], player.name, Math.round(player.score / 10));
 			}
+		}
+		else if (key === 'dugout:end_game') {
+			MAF.application.loadView('view-PodiumView');
 		}
 	}
 

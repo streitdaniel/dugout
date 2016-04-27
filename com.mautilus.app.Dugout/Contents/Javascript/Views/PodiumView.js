@@ -71,7 +71,7 @@ var PodiumView = new MAF.Class({
 			}
 
 			// show worm on podium
-			this.showWorm(players[i].position, players[i].color, players[i].name, players[i].score);
+			this.showWorm(parseInt(i, 10) + 1, players[i].color, players[i].name, players[i].score);
 
 		}
 
@@ -156,7 +156,7 @@ var PodiumView = new MAF.Class({
 		// show score
 		this.textScore = new MAF.element.Text({
 			totalLines: 1,
-			data: score
+			data: Math.round(score / 10)
 		});
 		this.textScore.element.addClass('podiumText');
 		this.textScore.element.addClass('score');
