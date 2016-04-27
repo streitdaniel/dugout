@@ -23,6 +23,11 @@ var HomeView = new MAF.Class({
 		console.log('[HomeView] initView');
 
 		this.playersTable = [];
+		this.PLAYER_STATE = {
+			EMPTY: 0,
+			CONNECTED: 1,
+			READY: 2
+		}
 	},
 
 	/**
@@ -33,7 +38,8 @@ var HomeView = new MAF.Class({
 	createView: function () {
 		console.log('[HomeView] createView');
 
-		var wrapper, logo, qrCode;
+		var view = this,
+			wrapper, logo, qrCode;
 
 		wrapper = new MAF.element.Container();
 		wrapper.element.addClass('homeView-wrapper');
@@ -79,9 +85,92 @@ var HomeView = new MAF.Class({
 				name = new MAF.element.Text({
 					data: 'Waiting for Player' + (i + 1) + '...'
 				}).appendTo(row);
+
+				view.playersTable.push({
+					state: view.PLAYER_STATE.EMPTY,
+					name: name
+				});
 			}
 			playersWrapper.appendTo(wrapper);
 		})();
+	},
+
+	afterPlayerConnected: function () {
+		var freeSlotIndex = this.getFirstFreeSlotIndex(),
+			player, name;
+
+		if (freeSlotIndex === -1) {
+			// Room is full
+			console.log('Sorry! Room is full :(');
+			return;
+		}
+
+		player = this.playersTable[freeSlotIndex];
+		name = player.name;
+
+		// set player's state to connected
+		name.setText('Player' + (freeSlotIndex + 1));
+		name.element.addClass('connected');
+		player.state = this.PLAYER_STATE.CONNECTED;
+	},
+
+	afterPlayerReady: function (playerIndex) {
+		// set player's state to ready
+		var player = this.playersTable[playerIndex],
+			freeSlotIndex;
+
+		player.name.element.removeClass('connected');
+		player.name.element.addClass('ready');
+		player.state = this.PLAYER_STATE.READY;
+
+		freeSlotIndex = this.getFirstFreeSlotIndex();
+
+		if (this.isEverybodyReady()) {
+			this.afterAllReady();
+		}
+	},
+
+	afterPlayerDisconnected: function (playerIndex) {
+		var player = this.playersTable[playerIndex];
+
+		player.name.element.removeClass('connected');
+		player.name.element.removeClass('ready');
+		player.name.setText('Waiting for Player' + (playerIndex + 1) + '...');
+		player.state = this.PLAYER_STATE.EMPTY;
+	},
+
+	afterAllReady: function () {
+		console.log('all players are ready!');
+		this.onStartGame();
+	},
+
+	getFirstFreeSlotIndex: function () {
+		var i;
+
+		for (i = 0; i < 4; i++) {
+			if (this.playersTable[i].state === this.PLAYER_STATE.EMPTY) {
+				return i;
+			}
+		}
+
+		// Room is full
+		return -1;
+	},
+
+	isEverybodyReady: function () {
+		var i;
+
+		for (i = 0; i < 4; i++) {
+			if (this.playersTable[i].state !== this.PLAYER_STATE.READY) {
+				return false;
+			}
+		}
+
+		return true;
+	},
+
+	onStartGame: function () {
+		MAF.application.loadView('view-CountdownView');
 	},
 
 	/**
