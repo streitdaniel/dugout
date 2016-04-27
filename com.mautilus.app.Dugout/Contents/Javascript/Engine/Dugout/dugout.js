@@ -25,6 +25,7 @@ Dugout = function() {
     this.adjustPlayersAbility = adjustPlayersAbility;
     this.isSlimeAt = isSlimeAt;
     this.addScore = addScore;
+    this.startDigging = startDigging;
     this.CONST_COLORS_NAMES = ['blue', 'green', 'red', 'yellow'];
 
     function run() {
@@ -66,6 +67,9 @@ Dugout = function() {
                 case 'onData':
                     console.log("########## DATA #########");
                     console.log(payload);
+                    if (typeof payload.data == "string") {
+                        payload.data = JSON.parse(payload.data);
+                    }
                     onData(payload.user, payload.data);
                     break;
                 default:
@@ -288,6 +292,7 @@ Dugout = function() {
         players[key].ready = true;
         sendEvent("refresh_players");
         for (k in players) {
+            console.log(players);
             if (!players[k].ready) {
                 allReady = false;
                 break;
@@ -319,7 +324,11 @@ Dugout = function() {
     }
 
     function everyoneReady() {
-        sendMessage('tv_all_ready', [], { num_players: playersLength });
+        var key, playing = [];
+        for (key in players) {
+            playing.push(key);
+        }
+        sendMessage('tv_all_ready', playing, { num_players: playersLength });
         allPlayersReady = true;
     }
 

@@ -116,6 +116,7 @@ var PlaygroundView = new MAF.Class({
 	 */
 	focusView: function() {
 		console.log('[PlaygroundView] focusView');
+		dugout.startDigging();
 	},
 	
 	/**
