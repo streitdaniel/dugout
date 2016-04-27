@@ -141,7 +141,8 @@ var Client = new (function(){
 		
 		// onData
 		this.room.addEventListener('data', function (event) {
-			Client.processData(event + ", my user id: " + Client.room.user);
+			console.log('[Room] onData: ' + event.user + ", my user id: " + Client.room.user);
+			Client.processData(event);
 		});
 		
 		window.addEventListener('unload', function (event) {
