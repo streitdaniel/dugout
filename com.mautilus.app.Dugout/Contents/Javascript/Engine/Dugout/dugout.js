@@ -65,8 +65,6 @@ Dugout = function() {
                         log('user has left', payload.user);
                     return;
                 case 'onData':
-                    console.log("########## DATA #########");
-                    console.log(payload);
                     if (typeof payload.data == "string") {
                         payload.data = JSON.parse(payload.data);
                     }
@@ -80,7 +78,6 @@ Dugout = function() {
 
         // If Room socket is connected create and join room
         if (room.connected) room.join();
-        console.log("CONNECTED ---------------------------------");
     }
 
     function onDisconnected() {
@@ -292,7 +289,6 @@ Dugout = function() {
         players[key].ready = true;
         sendEvent("refresh_players");
         for (k in players) {
-            console.log(players);
             if (!players[k].ready) {
                 allReady = false;
                 break;
@@ -381,14 +377,18 @@ Dugout = function() {
             y = Math.random() * 350;
             direction = Math.random() * Math.PI / 2;
             if (i == 0) {
+                y += 50;
+                x += 67;
                 direction += Math.PI / 2;
             }
             else if (i == 1) {
                 x += 890;
+                y += 50;
                 direction += Math.PI;
             }
             else if (i == 2) {
                 y += 450;
+                x += 67;
             }
             else if (i == 3) {
                 x += 890;
@@ -397,7 +397,7 @@ Dugout = function() {
             }
             players[keys[i]].position.x = x;
             players[keys[i]].position.y = y;
-            players[keys[i]].position.direction = direction;
+            players[keys[i]].direction = direction;
         }
     }
 

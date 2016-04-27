@@ -20,8 +20,8 @@ Dugout_Graphics = function(app) {
         DEATH_WIDTH = 68,
         DEATH_HEIGHT = 94,
         rendering = false,
-        canvasWidth = 1776,
-        canvasHeight = 1000,
+        canvasWidth = 1780,
+        canvasHeight = 900,
         pathCanvas,
         pathContext,
         slimeCanvas,
@@ -99,10 +99,14 @@ Dugout_Graphics = function(app) {
             player = players[key];
             wormImg = getSpritePosition(getObjectByPlayerColor(player));
             wormContext.translate(player.position.x, player.position.y);
-            wormContext.rotate(player.direction);
+            if (!player.dead) {
+                wormContext.rotate(player.direction);
+            }
             wormContext.drawImage(spriteCanvas.element, wormImg.x, wormImg.y, wormImg.width, wormImg.height, -WORM_WIDTH / 2, -WORM_HEIGHT / 2, WORM_WIDTH, WORM_HEIGHT);
-            wormContext.rotate( - player.direction);
-            wormContext.translate(- player.position.x, - player.position.y);
+            if (!player.dead) {
+                wormContext.rotate(-player.direction);
+            }
+            wormContext.translate(-player.position.x, -player.position.y);
         }
     }
     
@@ -141,7 +145,8 @@ Dugout_Graphics = function(app) {
     }
 
     function isSlimeAt(x, y) {
-        return (slimeContext.getImageData(x, y, 1, 1).data[4] < 64);
+        console.log("slimeAt", slimeContext.getImageData(x, y, 1, 1).data);
+        return (slimeContext.getImageData(x, y, 1, 1).data[3] > 64);
     }
 
     function prepareCanvases() {
@@ -152,7 +157,7 @@ Dugout_Graphics = function(app) {
         slimeCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         slimeCanvas.setStyle("opacity", "0.4");
         slimeContext = slimeCanvas.element.getContext('2d');
-        slimeContext.lineWidth = 10.0;
+        slimeContext.lineWidth = 2.0;
         wormCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         wormContext = wormCanvas.element.getContext('2d');
         bonusCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
