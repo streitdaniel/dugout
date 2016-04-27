@@ -127,30 +127,30 @@ button {
 	text-align: center;
 }
 
-#login .logo {
-	display: block;
-	width: 80%;
-	max-width: 685px;
-	margin: 0px auto 30px;
-}
-
-#login div {
-	margin: 0px auto 10px;
-	text-align: center;
-	width: 80%;
-}
-
-#login #input-login {
-	width: 100%;
-	display: block;
-	margin: 0 auto 0;
-}
-#login #btn-submit{
-	width: 100%;
-	display: block;
-	margin: 0 auto 0;
-	-webkit-box-sizing: content-box;
-}
+	#login .logo {
+		display: block;
+		width: 80%;
+		max-width: 685px;
+		margin: 0px auto 30px;
+	}
+	
+	#login div {
+		margin: 0px auto 10px;
+		text-align: center;
+		width: 80%;
+	}
+	
+	#login #input-login {
+		width: 100%;
+		display: block;
+		margin: 0 auto 0;
+	}
+	#login #btn-submit{
+		width: 100%;
+		display: block;
+		margin: 0 auto 0;
+		-webkit-box-sizing: content-box;
+	}
 
 /**
 * start scene
@@ -185,3 +185,20 @@ button {
 	-ms-user-select: none;      /* IE 10+ */
 	user-select: none;          /* Likely future */	
 }
+
+/**
+* continue scene
+*/
+#continue {
+	width: auto;
+	height: auto;
+	padding: 20px 20px 0px;
+	text-align: center;
+}
+
+	#continue .logo {
+		display: block;
+		width: 80%;
+		max-width: 685px;
+		margin: 0px auto 30px;
+	}
