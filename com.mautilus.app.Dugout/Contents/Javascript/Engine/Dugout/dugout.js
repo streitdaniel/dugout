@@ -255,6 +255,7 @@ Dugout = function() {
                 players[key].score += 1;
             }
         }
+        sendEvent("refresh_players");
     }
     
     function clJoin(key) {
@@ -283,6 +284,7 @@ Dugout = function() {
             players[key].name = data.attrs.name;
         }
         players[key].ready = true;
+        sendEvent("refresh_players");
         for (k in players) {
             if (!players[k].ready) {
                 allReady = false;
