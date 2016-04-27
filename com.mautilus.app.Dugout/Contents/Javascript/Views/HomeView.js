@@ -25,7 +25,7 @@ var HomeView = new MAF.Class({
 		this.playersTable = [];
 
 		this.emptySlotMessage = 'Waiting for player...';
-		this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType, this);
+		this.onBroadcastListener = this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType, this);
 	},
 
 	/**
@@ -90,7 +90,7 @@ var HomeView = new MAF.Class({
 	},
 
 	updateTable: function () {
-		var players, i,	rowString, playerState,
+		var players, i, rowString, playerState,
 			row, name, numberOfConnectedPlayers;
 
 		players = dugout.getPlayers();
@@ -111,7 +111,7 @@ var HomeView = new MAF.Class({
 			name.element.removeClass('ready');
 			name.setText(rowString);
 
-			if(playerState) {
+			if (playerState) {
 				name.element.addClass(playerState);
 			}
 
@@ -126,10 +126,13 @@ var HomeView = new MAF.Class({
 	onBroadcast: function (event) {
 		var key = event.payload.key;
 
+		console.log('MESSAGE');
+
 		if (key === 'dugout:countdown') {
 			this.onStartGame();
 
 		} else if (key === 'dugout:refresh_players') {
+			console.log('updateTable');
 			this.updateTable();
 		}
 	},
@@ -186,5 +189,7 @@ var HomeView = new MAF.Class({
 	 */
 	destroyView: function () {
 		console.log('[HomeView] destroyView');
+		this.onBroadcastListener.unsubscribeFrom(MAF.messages, MAF.messages.eventType);
+		delete this.onBroadcastListener;
 	}
 });

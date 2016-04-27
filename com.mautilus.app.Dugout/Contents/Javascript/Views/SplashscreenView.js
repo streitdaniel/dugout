@@ -89,7 +89,6 @@ var SplashscreenView = new MAF.Class({
 		 */
 		updateView: function () {
 			console.log('[SplashscreenView] updateView');
-			this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType);
 		},
 
 		/**
@@ -121,7 +120,6 @@ var SplashscreenView = new MAF.Class({
 		 */
 		unselectView: function () {
 			console.log('[SplashscreenView] unselectView');
-			this.onBroadcast.unsubscribeFrom(MAF.messages, MAF.messages.eventType);
 		},
 
 		/**
