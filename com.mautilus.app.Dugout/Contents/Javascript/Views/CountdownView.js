@@ -14,7 +14,7 @@ var CountdownView = new MAF.Class({
 		this.parent();
 
 		this.colors = ['red', 'orange', 'green'];
-		this.beepsTimes = [2100, 1150, 3000];
+		this.beepsTimes = [2200, 1150, 3000];
 		this.color = 0;
 		this.semaphore = {};
 	},
@@ -71,13 +71,20 @@ var CountdownView = new MAF.Class({
 
 		this.semaphore[this.colors[this.color]].show()
 
+		// colors interval changing
 		var scope = this;
-		setTimeout(function() {
-			scope.semaphore[scope.colors[scope.color]].hide();
-			scope.color += 1;
-			scope.updateView();
-		}, scope.beepsTimes[scope.color]);
-		
+		if (this.color < 2) {
+			setTimeout(function() {
+				scope.semaphore[scope.colors[scope.color]].hide();
+				scope.color += 1;
+				scope.updateView();
+			}, scope.beepsTimes[scope.color]);
+		} else {
+			setTimeout(function() {
+				MAF.application.loadView('view-PlaygroundView');
+			}, 1000);
+		}
+
 	},
 	
 	/**
