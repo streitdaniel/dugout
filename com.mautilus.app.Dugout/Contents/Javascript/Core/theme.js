@@ -183,7 +183,7 @@ Theme.set({
 		styles: {
 			vOffset: 450,
 			hOffset: 460,
-			height: 350,
+			height: 385,
 			width: 1000
 		}
 	},
@@ -207,19 +207,19 @@ Theme.set({
 
 	'HomeView-playersWrapper-row.row2': {
 		styles: {
-			vOffset: 90
+			vOffset: 100
 		}
 	},
 
 	'HomeView-playersWrapper-row.row3': {
 		styles: {
-			vOffset: 180
+			vOffset: 200
 		}
 	},
 
 	'HomeView-playersWrapper-row.row4': {
 		styles: {
-			vOffset: 270
+			vOffset: 300
 		}
 	},
 
