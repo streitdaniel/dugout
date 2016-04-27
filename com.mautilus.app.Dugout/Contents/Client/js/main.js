@@ -26,7 +26,8 @@ var App = new (function(){
 	
 	this.init = function() {
 		connectingView.init();
-	};;
+		loginView.init();
+	};
 })();
 
 
@@ -82,6 +83,14 @@ var connectingView = function(){
 var loginView = function(){
 	
 	var view = new View('login');
+	/**
+	 * To set player name
+	 * @param {String} name - player name
+	 */
+	view.setName = function(name) {
+		var input = document.getElementById('input-login');
+		input.value = name;
+	};
 	return view;
 }();
 

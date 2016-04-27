@@ -28,7 +28,7 @@ input, textarea, select {
 	border: 1px solid #555;
 	padding: 0.5em;
 	font-size: 15px;
-	line-height: 1.2em;
+	line-height: 1.5em;
 	width: 80%;
 	background: #fff;
 	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
@@ -50,7 +50,6 @@ button {
 	-webkit-border-radius: 0.5em;
 	width: 80%;
 	border-radius: 2em;
-	padding: 0.25em 1em;
 	line-height: 1.5em;
 }
 
@@ -111,15 +110,21 @@ button {
 }
 
 #login div {
-	margin: 0px 0px 10px;
+	margin: 0px auto 10px;
 	text-align: center;
+	width: 80%;
 }
 
 #login #input-login {
-
+	width: 100%;
+	display: block;
+	margin: 0 auto 0;
 }
 #login #btn-submit{
-
+	width: 100%;
+	display: block;
+	margin: 0 auto 0;
+	-webkit-box-sizing: content-box;
 }
 
 
