@@ -53,7 +53,6 @@ var CountdownView = new MAF.Class({
 
 		}
 
-		//dugout.audio.playSound(dugout.audio.DEATH_SOUND);
 		dugout.audio.playSound(dugout.audio.COUNTDOWN_SOUND);
 	},
 
