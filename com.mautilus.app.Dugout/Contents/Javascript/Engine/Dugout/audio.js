@@ -14,12 +14,6 @@ Dugout_Audio = function(app) {
 
     MAF.mediaplayer.init();
 
-    (function (event) {
-        log(">>>>>>>>>>>>>>>>>>>>>>>");
-        log(event.payload);
-        log("<<<<<<<<<<<<<<<<<<<<<<<");
-    }).subscribeTo(MAF.mediaplayer, 'onStateChange');
-
     function playSound(sound) {
         switch (sound) {
             case APPLAUSE_SOUND:
