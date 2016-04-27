@@ -23,10 +23,31 @@ var App = new (function(){
 	// public variable
 	this.client = {};   // network client
 	this.scenes = [];   // list of scenes
+	this.colors = [];
+	this.playerId = 0;  // 1 - red, 2 - green, 3 - yellow, 4 - blue, 0 - no-color
 	
+	/**
+	 * To initialize App
+	 */
 	this.init = function() {
 		connectingView.init();
 		loginView.init();
+	};
+	
+	/**
+	 * To set color by setting class to viewport
+	 */
+	this.setColor = function(number) {
+		var el = document.getElementById('viewport');
+		el.className = el.className.replace(/color-\d/gi, "");
+		el.addClass('color-'+number);
+	};
+	
+	/**
+	 * To remove color
+	 */
+	this.removeColor = function() {
+		el.className = el.className.replace(/color-\d/gi, "");
 	};
 })();
 

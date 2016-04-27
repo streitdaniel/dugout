@@ -66,6 +66,28 @@ button {
 	display: none;
 }
 
+/* colors */
+/* red */
+.color-1 {
+	background-color: #ed008c !important;
+}
+
+/* green */
+.color-2 {
+	background-color: #8cc63e !important;;
+}
+
+/* yellow */
+.color-3 {
+	background-color: #fcb040 !important;;
+}
+
+/* blue */
+.color-4 {
+	background-color: #008ad2 !important;;
+}
+
+
 /**
 * connecting scene
 */
