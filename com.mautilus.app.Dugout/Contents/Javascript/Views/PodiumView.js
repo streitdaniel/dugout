@@ -239,9 +239,11 @@ var PodiumView = new MAF.Class({
 		this.textCounter.setText(time);
 
 		var scope = this;
-		setTimeout(function() {
-			scope.showCounter(time - 1);
-		}, 1000)
+		if (time > 0) {
+			setTimeout(function() {
+				scope.showCounter(time - 1);
+			}, 1000)
+		}
 
 	}
 	
