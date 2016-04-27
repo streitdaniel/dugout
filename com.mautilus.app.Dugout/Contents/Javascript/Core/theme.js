@@ -409,4 +409,20 @@ Theme.set({
 		}
 	},
 
+	'counter': {
+		styles: {
+			'top': '60px',
+			'left': '1750px',
+			'display': 'inline-block',
+			'font-size': '26px',
+			'line-height': '45px',
+			'background-color': 'rgba(255,255,255, 0.6)',
+			'border-radius': '30px',
+			'width': '100px',
+			'color': '#000000',
+			'text-align': 'center',
+			'box-shadow': ' 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 23px 0 rgba(0, 0, 0, 0.05)'
+		}
+	},
+	
 });	

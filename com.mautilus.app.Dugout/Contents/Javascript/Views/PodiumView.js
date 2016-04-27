@@ -75,6 +75,12 @@ var PodiumView = new MAF.Class({
 
 		}
 
+		this.showCounter(10);
+		
+		setTimeout(function() {
+			MAF.application.loadView('view-HomeView');
+		}, 10000);
+
 	},
 	
 	/**
@@ -172,6 +178,29 @@ var PodiumView = new MAF.Class({
 		this.textWinner.setText($_('the_winner_is') + ': ' + name);
 		this.textWinner.appendTo(this);
 		this.textWinner.show();
-	}
+	},
 
+	showCounter: function(time) {
+
+		if (!this.inited) {
+			this.textCounter = new MAF.element.Text({
+				totalLines: 1,
+				data: time
+			});
+			this.textCounter.element.addClass('counter');
+			this.textCounter.appendTo(this);
+			this.textCounter.show();
+
+			this.inited = true;
+		}
+
+		this.textCounter.setText(time);
+
+		var scope = this;
+		setTimeout(function() {
+			scope.showCounter(time - 1);
+		}, 1000)
+
+	}
+	
 });
