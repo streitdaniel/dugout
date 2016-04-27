@@ -27,7 +27,9 @@ var HomeView = new MAF.Class({
 			EMPTY: 0,
 			CONNECTED: 1,
 			READY: 2
-		}
+		};
+
+		this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType);
 	},
 
 	/**
@@ -39,17 +41,14 @@ var HomeView = new MAF.Class({
 		console.log('[HomeView] createView');
 
 		var view = this,
-			wrapper, logo, qrCode;
-
-		wrapper = new MAF.element.Container();
-		wrapper.element.addClass('homeView-wrapper');
+			logo, qrCode;
 
 		logo = new MAF.element.Image({
 			autoShow: true,
 			hideWhileLoading: true,
 			src: '/Images/splash_logo_male.png'
 		});
-		logo.element.addClass('HomeView-wrapper-logo');
+		logo.element.addClass('HomeView-logo');
 
 		qrCode = new MAF.element.Image({
 			styles: {
@@ -58,41 +57,101 @@ var HomeView = new MAF.Class({
 				width: 275
 			}
 		}).setSource(QRCode.get('192.168.11.101:8080'));
-		qrCode.appendTo(wrapper);
+		qrCode.appendTo(this);
 
-		logo.appendTo(wrapper);
-		wrapper.appendTo(this);
+		logo.appendTo(this);
+		this.drawTable();
+	},
 
-		// inits players table
-		(function () {
-			var i,
-				playersWrapper,
-				row, wormImg, name,
-				colors;
+	drawTable: function () {
+		var players,
+			i,
+			playersWrapper, rowString, playerState,
+			row, wormImg, name,
+			colors, emptySlotMessage, numberOfConnectedPlayers;
 
-			colors = ['red', 'green', 'yellow', 'blue'];
+		emptySlotMessage = 'Waiting for player...';
 
-			playersWrapper = new MAF.element.Container();
-			playersWrapper.element.addClass('homeView-wrapper-playersWrapper');
+		//players = dugout.getPlayers();
+		players = [{
+			name: "Player 1",
+			color: "#ed008c",
+			position: {
+				x: 0,
+				y: 0
+			},
+			direction: 0,
+			speed: 2,
+			turning_speed: 3,
+			dead: false,
+			ready: false,
+			score: 0
+		},
+			{
+				name: "Player 3",
+				color: "#ed008c",
+				position: {
+					x: 0,
+					y: 0
+				},
+				direction: 0,
+				speed: 2,
+				turning_speed: 3,
+				dead: false,
+				ready: false,
+				score: 0
+			}, {
+				name: "Player 4",
+				color: "#ed008c",
+				position: {
+					x: 0,
+					y: 0
+				},
+				direction: 0,
+				speed: 2,
+				turning_speed: 3,
+				dead: false,
+				ready: false,
+				score: 0
+			}];
+		numberOfConnectedPlayers = players.length;
 
-			for (i = 0; i < 4; i++) {
-				row = new MAF.element.Container().appendTo(playersWrapper);
-				row.element.addClass('homeView-wrapper-playersWrapper-row row' + (i + 1));
+		console.log(players);
 
-				wormImg = new MAF.element.Image().appendTo(row);
-				wormImg.element.addClass('worm ' + colors[i]);
+		colors = ['red', 'green', 'yellow', 'blue'];
 
-				name = new MAF.element.Text({
-					data: 'Waiting for Player' + (i + 1) + '...'
-				}).appendTo(row);
+		playersWrapper = new MAF.element.Container();
+		playersWrapper.element.addClass('homeView-playersWrapper');
 
-				view.playersTable.push({
-					state: view.PLAYER_STATE.EMPTY,
-					name: name
-				});
+		for (i = 0; i < 4; i++) {
+			row = new MAF.element.Container().appendTo(playersWrapper);
+			row.element.addClass('homeView-playersWrapper-row row' + (i + 1));
+
+			wormImg = new MAF.element.Image().appendTo(row);
+			wormImg.element.addClass('worm ' + colors[i]);
+
+			name = new MAF.element.Text({});
+			name.element.addClass(playerState);
+			if (i < numberOfConnectedPlayers) {
+				rowString = players[i].name;
+				playerState = players[i].ready === true ? 'ready' : 'connected'
+
+			} else {
+				rowString = emptySlotMessage;
 			}
-			playersWrapper.appendTo(wrapper);
-		})();
+			name.setText(rowString);
+			
+			if(playerState) {
+				name.element.addClass(playerState);
+			}
+			name.appendTo(row);
+
+			this.playersTable.push({
+				state: this.PLAYER_STATE.EMPTY,
+				name: name
+			});
+		}
+		playersWrapper.appendTo(this);
 	},
 
 	afterPlayerConnected: function () {
@@ -173,6 +232,19 @@ var HomeView = new MAF.Class({
 		MAF.application.loadView('view-CountdownView');
 	},
 
+	onBroadcast: function (event) {
+		console.log('[HomeView] Broadcast recieved');
+		var key = event.payload.key;
+
+		if (key === 'dugout:countdown') {
+			// this.onStartGame();
+			MAF.application.loadView('view-CountdownView');
+
+		} else if (key === 'dugout:refresh_players') {
+			console.log('TODO: refresh players table');
+		}
+	},
+
 	/**
 	 * Called - Everytime the user visits the view
 	 * Do here - View is visible to the user from here on
@@ -198,6 +270,8 @@ var HomeView = new MAF.Class({
 	 */
 	focusView: function () {
 		console.log('[HomeView] focusView');
+
+		MAF.messages.store('dugout:refresh_players', '');
 	},
 
 	/**

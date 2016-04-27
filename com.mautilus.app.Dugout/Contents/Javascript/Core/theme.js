@@ -166,25 +166,20 @@ Theme.set({
 	HomeView: {
 		styles: {
 			backgroundColor: '#000',
-			backgroundImage: "url('./apps/com.mautilus.app.Dugout/Contents/Images/splash_bg.png')"
-		}
-	},
-
-	'HomeView-wrapper': {
-		styles: {
+			backgroundImage: "url('./apps/com.mautilus.app.Dugout/Contents/Images/splash_bg.png')",
 			height: 1080,
 			width: 1920
 		}
 	},
 
-	'HomeView-wrapper-logo': {
+	'HomeView-logo': {
 		styles: {
 			vOffset: 100,
 			hOffset: 739.5
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper': {
+	'HomeView-playersWrapper': {
 		styles: {
 			vOffset: 450,
 			hOffset: 460,
@@ -193,7 +188,7 @@ Theme.set({
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row': {
+	'HomeView-playersWrapper-row': {
 		styles: {
 			height: 75,
 			width: 1000,
@@ -204,31 +199,31 @@ Theme.set({
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row.row1': {
+	'HomeView-playersWrapper-row.row1': {
 		styles: {
 			vOffset: 0
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row.row2': {
+	'HomeView-playersWrapper-row.row2': {
 		styles: {
 			vOffset: 90
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row.row3': {
+	'HomeView-playersWrapper-row.row3': {
 		styles: {
 			vOffset: 180
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row.row4': {
+	'HomeView-playersWrapper-row.row4': {
 		styles: {
 			vOffset: 270
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row .image.worm': {
+	'HomeView-playersWrapper-row .image.worm': {
 		styles: {
 			width: 70,
 			height: 85,
@@ -236,31 +231,31 @@ Theme.set({
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row .image.worm.red': {
+	'HomeView-playersWrapper-row .image.worm.red': {
 		styles: {
 			'content': 'url(./apps/com.mautilus.app.Dugout/Contents/Images/cervik_red.png)'
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row .image.worm.green': {
+	'HomeView-playersWrapper-row .image.worm.green': {
 		styles: {
 			'content': 'url(./apps/com.mautilus.app.Dugout/Contents/Images/cervik_green.png)'
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row .image.worm.yellow': {
+	'HomeView-playersWrapper-row .image.worm.yellow': {
 		styles: {
 			'content': 'url(./apps/com.mautilus.app.Dugout/Contents/Images/cervik_yellow.png)'
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row .image.worm.blue': {
+	'HomeView-playersWrapper-row .image.worm.blue': {
 		styles: {
 			'content': 'url(./apps/com.mautilus.app.Dugout/Contents/Images/cervik_blue.png)'
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row .text': {
+	'HomeView-playersWrapper-row .text': {
 		styles: {
 			'text-align': 'center',
 			width: '100%',
@@ -270,13 +265,13 @@ Theme.set({
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row .text.connected': {
+	'HomeView-playersWrapper-row .text.connected': {
 		styles: {
 			color: '#aaa'
 		}
 	},
 
-	'HomeView-wrapper-playersWrapper-row .text.ready': {
+	'HomeView-playersWrapper-row .text.ready': {
 		styles: {
 			color: '#000'
 		}

@@ -18,10 +18,6 @@ var SplashscreenView = new MAF.Class({
 					console.log('[SplashscreenView] onAnimationEnded');
 				}
 			}
-
-//		styles: {
-//			backgroundColor: 'green'
-//		}
 		},
 
 		initialize: function () {
@@ -43,7 +39,6 @@ var SplashscreenView = new MAF.Class({
 			var onAppendProcess = function () {
 				console.log('[SplashscreenView] onAppend1');
 			};
-			onAppendProcess.subscribeTo(this, 'onAppend', this);
 			console.log('[SplashscreenView] initView');
 		},
 
@@ -94,6 +89,7 @@ var SplashscreenView = new MAF.Class({
 		 */
 		updateView: function () {
 			console.log('[SplashscreenView] updateView');
+			this.onBroadcast.subscribeTo(MAF.messages, MAF.messages.eventType);
 		},
 
 		/**
@@ -114,6 +110,10 @@ var SplashscreenView = new MAF.Class({
 			console.log('[SplashscreenView] focusView');
 		},
 
+		onBroadcast: function () {
+			console.log('MESSAGE CATCHED IN SPLASHVIEW');
+		},
+
 		/**
 		 * Called - Everytime the user leaves the view
 		 * Do here - The application deselects the view as it's current
@@ -121,6 +121,7 @@ var SplashscreenView = new MAF.Class({
 		 */
 		unselectView: function () {
 			console.log('[SplashscreenView] unselectView');
+			this.onBroadcast.unsubscribeFrom(MAF.messages, MAF.messages.eventType);
 		},
 
 		/**
