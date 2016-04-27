@@ -2,12 +2,12 @@
  * Playground view
  * 
  * @class PlaygroundView
- * @extends MAF.system.SidebarView
+ * @extends MAF.system.FullscreenView
  */
 var PlaygroundView = new MAF.Class({
 	ClassName: 'PlaygroundView',
 
-	Extends: MAF.system.SidebarView,
+	Extends: MAF.system.FullscreenView,
 
 	initialize: function () {
 		console.log('[PlaygroundView] initialize');

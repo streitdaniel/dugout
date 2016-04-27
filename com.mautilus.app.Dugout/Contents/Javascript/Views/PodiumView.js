@@ -12,7 +12,6 @@ var PodiumView = new MAF.Class({
 	initialize: function () {
 		console.log('[PodiumView] initialize');
 		this.parent();
-		this.colors = ['blue', 'green', 'red', 'yellow']
 	},
 
 	/**
@@ -33,21 +32,13 @@ var PodiumView = new MAF.Class({
 	createView: function () {
 		console.log('[PodiumView] createView');
 
-		/*
-		var splashLogo = new MAF.element.Image({
-			autoShow: false,
-			hideWhileLoading: true,
-			src: '/Images/splash_logo.png'
-		});
-		*/
-
 		// define worms object
 		this.worms = {};
 
 		// initialize each worms color
-		for (var index in this.colors) {
+		for (var index in dugout.CONST_COLORS_NAMES) {
 			// assign color
-			var color = this.colors[index];
+			var color = dugout.CONST_COLORS_NAMES[index];
 
 			this.worms[color] = new MAF.element.Image({
 				autoShow: false,

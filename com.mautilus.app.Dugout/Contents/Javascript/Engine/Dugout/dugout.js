@@ -14,6 +14,7 @@ Dugout = function() {
     this.getBonuses = getBonuses;
     this.renderBonuses = renderBonuses;
     this.setNewPosition = setNewPosition;
+    this.CONST_COLORS_NAMES = ['blue', 'green', 'red', 'yellow'];
 
     function run() {
         room = new MAF.PrivateRoom(new Date().getTime() + 'dugout_game');
