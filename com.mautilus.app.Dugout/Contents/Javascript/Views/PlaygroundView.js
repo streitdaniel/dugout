@@ -144,6 +144,8 @@ var PlaygroundView = new MAF.Class({
 				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position3');
 				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position4');
 				this.textName[dugout.CONST_COLORS_NAMES[index]].hide();
+			}
+			if (this.wormsScore[dugout.CONST_COLORS_NAMES[index]]) {
 				this.wormsScore[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position1');
 				this.wormsScore[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position2');
 				this.wormsScore[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position3');
@@ -189,7 +191,9 @@ var PlaygroundView = new MAF.Class({
 
 	updateScore: function(position, color, name, score) {
 
-		this.textName[color].setText(name + ' ' + score);
+		if (this.textName[color]) {
+			this.textName[color].setText(name + ' ' + score);
+		}
 
 	},
 
@@ -213,18 +217,19 @@ var PlaygroundView = new MAF.Class({
 			this.textName[color] = new MAF.element.Text({
 				totalLines: 1,
 			});
+			this.textName[color].appendTo(this);
 		}
 
 		this.textName[color].setText(name + ' ' + score);
 		this.textName[color].element.addClass('ingameText');
 		this.textName[color].element.addClass('name');
 		this.textName[color].element.addClass('position' + position);
-		this.textName[color].appendTo(this);
 		this.textName[color].show();
 
 	},
 
 	onBroadcast: function (event) {
+
 		var key = event.payload.key, playersLength, players, i, player, lt = {
 			'#ed008c': 'red',
 			'#8cc63e': 'green',

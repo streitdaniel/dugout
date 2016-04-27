@@ -34,6 +34,8 @@ var PodiumView = new MAF.Class({
 
 		// define worms object
 		this.worms = {};
+		this.textName = {};
+		this.textScore = {};
 
 		// initialize each worms color
 		for (var index in dugout.CONST_COLORS_NAMES) {
@@ -125,6 +127,32 @@ var PodiumView = new MAF.Class({
 	 */
 	hideView: function() {
 		console.log('[PodiumView] hideView');
+
+		for (var index in dugout.CONST_COLORS_NAMES) {
+			if (this.textName[dugout.CONST_COLORS_NAMES[index]]) {
+				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position1');
+				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position2');
+				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position3');
+				this.textName[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position4');
+				this.textName[dugout.CONST_COLORS_NAMES[index]].hide();
+			}
+			if (this.textScore[dugout.CONST_COLORS_NAMES[index]]) {
+				this.textScore[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position1');
+				this.textScore[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position2');
+				this.textScore[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position3');
+				this.textScore[dugout.CONST_COLORS_NAMES[index]].element.removeClass('position4');
+				this.textScore[dugout.CONST_COLORS_NAMES[index]].hide();
+			}
+			if (this.worms[dugout.CONST_COLORS_NAMES[index]]) {
+				this.worms[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position1');
+				this.worms[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position2');
+				this.worms[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position3');
+				this.worms[[dugout.CONST_COLORS_NAMES[index]]].element.removeClass('position4');
+				this.worms[[dugout.CONST_COLORS_NAMES[index]]].hide();
+			}
+
+		}
+
 	},
 	
 	/**
@@ -151,26 +179,30 @@ var PodiumView = new MAF.Class({
 		this.worms[color].show();
 
 		// show name
-		this.textName = new MAF.element.Text({
-			totalLines: 1,
-			data: name
-		});
-		this.textName.element.addClass('podiumText');
-		this.textName.element.addClass('name');
-		this.textName.element.addClass('position' + position);
-		this.textName.appendTo(this);
-		this.textName.show();
+		if (!this.textName[color]) {
+			this.textName[color] = new MAF.element.Text({
+				totalLines: 1,
+			});
+			this.textName[color].appendTo(this);
+		}
+		this.textName[color].setText(name);
+		this.textName[color].element.addClass('podiumText');
+		this.textName[color].element.addClass('name');
+		this.textName[color].element.addClass('position' + position);
+		this.textName[color].show();
 
 		// show score
-		this.textScore = new MAF.element.Text({
-			totalLines: 1,
-			data: Math.round(score / 10)
-		});
-		this.textScore.element.addClass('podiumText');
-		this.textScore.element.addClass('score');
-		this.textScore.element.addClass('position' + position);
-		this.textScore.appendTo(this);
-		this.textScore.show();
+		if (!this.textScore[color]) {
+			this.textScore[color] = new MAF.element.Text({
+				totalLines: 1,
+			});
+			this.textScore[color].appendTo(this);
+		}
+		this.textScore[color].setText(Math.round(score / 10, 10));
+		this.textScore[color].element.addClass('podiumText');
+		this.textScore[color].element.addClass('score');
+		this.textScore[color].element.addClass('position' + position);
+		this.textScore[color].show();
 
 	},
 
@@ -179,12 +211,14 @@ var PodiumView = new MAF.Class({
 	 * @param {String} - name
 	 */
 	showWinner: function(name) {
-		this.textWinner = new MAF.element.Text({
-			totalLines: 1,
-		});
+		if (!this.textWinner) {
+			this.textWinner = new MAF.element.Text({
+				totalLines: 1,
+			});
+			this.textWinner.appendTo(this);
+		}
 		this.textWinner.element.addClass('winner');
 		this.textWinner.setText($_('the_winner_is') + ': ' + name);
-		this.textWinner.appendTo(this);
 		this.textWinner.show();
 	},
 
