@@ -62,6 +62,12 @@ var PodiumView = new MAF.Class({
 		console.log('[PodiumView] updateView');
 
 		var players = dugout.getOrderedPlayers();
+		var lt = {
+				'#ed008c': 'red',
+				'#8cc63e': 'green',
+				'#fcb040': 'yellow',
+				'#008ad2': 'blue'
+			};
 
 		for (var i in players) {
 
@@ -71,7 +77,7 @@ var PodiumView = new MAF.Class({
 			}
 
 			// show worm on podium
-			this.showWorm(parseInt(i, 10) + 1, players[i].color, players[i].name, players[i].score);
+			this.showWorm(parseInt(i, 10) + 1, lt[players[i].color], players[i].name, players[i].score);
 
 		}
 
