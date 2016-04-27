@@ -33,6 +33,7 @@ var App = new (function(){
 	this.client = {};   // network client
 	this.scenes = [];   // list of scenes
 	this.COLORS_ID = {"red": 1, "green": 2, "yellow": 3, "blue": 4};
+	this.COLORSCODE_ID = {"#ed008c": 1, "#8cc63e": 2, "#fcb040": 3, "#008ad2": 4};
 	this.playerColorId = 0;  // 1 - red, 2 - green, 3 - yellow, 4 - blue, 0 - no-color
 	
 	this.activeView = {};
@@ -75,7 +76,7 @@ var App = new (function(){
 	this.setColorId = function(color) {
 		var colorId = color;
 		if(typeof color === 'string') {
-			colorId = this.COLORS_ID[color];
+			colorId = this.COLORSCODE_ID[color];
 		}
 		this.playerColorId = colorId;
 		
