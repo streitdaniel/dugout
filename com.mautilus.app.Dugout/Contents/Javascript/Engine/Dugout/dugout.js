@@ -1,5 +1,5 @@
 Dugout = function() {
-    var CONST_BASE_SPEED = 2,
+    var CONST_BASE_SPEED = 8,
         CONST_TURNING_SPEED = 3,
         CONST_COLORS = ['#ed008c', '#8cc63e', '#fcb040', '#008ad2'],
         audio = new Dugout_Audio(this),
