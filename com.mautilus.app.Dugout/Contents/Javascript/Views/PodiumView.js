@@ -61,14 +61,20 @@ var PodiumView = new MAF.Class({
 	updateView: function () {
 		console.log('[PodiumView] updateView');
 
-		// show the winner
-		this.showWinner('Radim');
+		var players = dugout.getOrderedPlayers();
 
-		// show worm on podium
-		this.showWorm(1, 'blue', 'Radim', 15);
-		this.showWorm(2, 'green', 'Martin', 12);
-		this.showWorm(3, 'red', 'Ondra', 10);
-		this.showWorm(4, 'yellow', 'Petr', 8);
+		for (var i in players) {
+
+			// show the winner
+			if (0 == i) {
+				this.showWinner(players[i].name);
+			}
+
+			// show worm on podium
+			this.showWorm(players[i].position, players[i].color, players[i].name, players[i].score);
+
+		}
+
 	},
 	
 	/**
