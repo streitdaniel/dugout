@@ -16,6 +16,7 @@ Dugout_Logic = function(app) {
     this.detectBonuses = detectBonuses;
     this.startAddingBonuses = startAddingBonuses;
     this.stopAddingBonuses = stopAddingBonuses;
+    this.getBonuses = getBonuses;
 
     function renderBonuses() {
         if (lastBonusesState === bonusesState) {
@@ -28,6 +29,7 @@ Dugout_Logic = function(app) {
     }
     
     function detectDeaths(players) {
+        return;
         var predictedX, predictedY, player, key;
         for (key in players) {
             player = players[key];
@@ -39,7 +41,12 @@ Dugout_Logic = function(app) {
             if (predictedY < 1) predictedY = 1;
             if (predictedY > 889) predictedY = 899;
             if (app.isSlimeAt(predictedX, predictedY)) {
-                app.killPlayer(key);
+                if (player.heals > 0) {
+                    app.adjustPlayersAbility(key, "heals", -1);
+                }
+                else {
+                    app.killPlayer(key);
+                }
             }
         }
     }
@@ -64,6 +71,8 @@ Dugout_Logic = function(app) {
 
     function collectBonus(playerKey, bonusIndex) {
         var bonus = bonuses[bonusIndex];
+        bonuses.splice(bonusIndex, 1);
+        bonusesState++;
         switch (bonus.type) {
             case SPEED_UP_BONUS:
                 app.adjustPlayersAbility(playerKey, "speed", 1);
@@ -87,6 +96,7 @@ Dugout_Logic = function(app) {
                 app.adjustPlayersAbility(playerKey, "score", 300);
                 break;
             case HEAL_BONUS:
+                app.adjustPlayersAbility(playerKey, "heals", 1);
                 break;
         }
     }
@@ -101,6 +111,7 @@ Dugout_Logic = function(app) {
                 },
                 type: Math.floor(Math.random() * 5)
             });
+            bonusesState++;
             addBonus();
         }, timeout * 1000);
     }
@@ -111,6 +122,10 @@ Dugout_Logic = function(app) {
 
     function stopAddingBonuses() {
         clearTimeout(bonusTimeout);
+    }
+
+    function getBonuses() {
+        return bonuses;
     }
 
 };

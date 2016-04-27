@@ -120,7 +120,7 @@ Dugout_Graphics = function(app) {
         bonusContext.clearRect(0, 0, canvasWidth, canvasHeight);
         for (i = 0; i < bonusesLength; i++) {
             bonus = bonuses[i];
-            bonusImg = getSpritePosition(bonus.type);
+            bonusImg = getSpritePosition(bonus.type + 4);
             bonusContext.drawImage(spriteCanvas.element, bonusImg.x, bonusImg.y, bonusImg.width, bonusImg.height, bonus.position.x - BONUS_WIDTH / 2, bonus.position.y - BONUS_HEIGHT / 2, BONUS_WIDTH, BONUS_HEIGHT);
         }
     }
@@ -150,7 +150,6 @@ Dugout_Graphics = function(app) {
     }
 
     function isSlimeAt(x, y) {
-        console.log("slimeAt", slimeContext.getImageData(x, y, 1, 1).data);
         return (slimeContext.getImageData(x, y, 1, 1).data[3] > 64);
     }
 

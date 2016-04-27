@@ -16,6 +16,7 @@ Dugout = function() {
     this.audio = audio;
     this.getQRCode = getQRCode;
     this.getPlayers = getPlayers;
+    this.getBonuses = getBonuses;
     this.getOrderedPlayers = getOrderedPlayers;
     this.renderBonuses = renderBonuses;
     this.setNewPosition = setNewPosition;
@@ -147,7 +148,8 @@ Dugout = function() {
             turning_speed: CONST_TURNING_SPEED,
             dead: false,
             ready: false,
-            score: 0
+            score: 0,
+            heals: 0
         };
         playersLength++;
         sendEvent("refresh_players");
@@ -405,6 +407,10 @@ Dugout = function() {
             players[keys[i]].position.y = y;
             players[keys[i]].direction = direction;
         }
+    }
+
+    function getBonuses() {
+        return logic.getBonuses();
     }
 
     function shuffle(array) {
