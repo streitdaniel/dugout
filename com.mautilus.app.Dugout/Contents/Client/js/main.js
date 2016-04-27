@@ -340,7 +340,25 @@ var startView = function(){
 var controlsView = function(){
 	
 	var view = new View('controls');
+
+	/**
+	 * To init
+	 */
+	view.init = function() {
+		this.el = document.getElementById(this.id) || null;
+
+		// click on left button
+		this.btnLeft = document.getElementById('btn-left');
+		this.btnLeft.addEventListener('click', function() { App.clickedLeft(); })
+
+		// click on right button
+		this.btnRight = document.getElementById('btn-right');
+		this.btnRight.addEventListener('click', function() { App.clickedRight(); })
+
+	}
+
 	return view;
+
 }();
 
 /**
@@ -368,7 +386,21 @@ var scoreView = function(){
 var continueView = function(){
 	
 	var view = new View('continue');
+
+	/**
+	 * To init
+	 */
+	view.init = function() {
+		this.el = document.getElementById(this.id) || null;
+
+		// click on continue button
+		this.btnContinue = document.getElementById('btn-continue');
+		this.btnContinue.addEventListener('click', function() { App.clickedContinue(); })
+
+	}
+
 	return view;
+
 }();
 
 
