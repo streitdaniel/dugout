@@ -91,21 +91,24 @@ button {
 /**
 * connecting scene
 */
-#connecting {
+#connecting,
+#death {
 	width: auto;
 	height: auto;
 	padding: 20px 20px 0px;
 	text-align: center;
 }
 
-	#connecting .logo {
+	#connecting .logo,
+	#death .logo {
 		display: block;
 		width: 80%;
 		max-width: 685px;
 		margin: 0px auto 30px;
 	}
 	
-	#connecting .text {
+	#connecting .text,
+	#death .text {
 		display: inline-block;
 		padding: 0px 20px 0px;
 		font-size: 1.5em;
