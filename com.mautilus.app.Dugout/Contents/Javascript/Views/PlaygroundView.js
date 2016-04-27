@@ -12,6 +12,7 @@ var PlaygroundView = new MAF.Class({
 	initialize: function () {
 		console.log('[PlaygroundView] initialize');
 		this.parent();
+		this.textName = {};
 	},
 
 	/**
@@ -95,11 +96,7 @@ var PlaygroundView = new MAF.Class({
 	updateView: function () {
 		console.log('[PlaygroundView] updateView');
 
-		// show worms score
-		this.showWormScore(1, 'red', 'Ondra', 10);
-		this.showWormScore(2, 'green', 'Martin', 12);
-		this.showWormScore(3, 'yellow', 'Petr', 8);
-		this.showWormScore(4, 'blue', 'Radim', 15);
+		this.showScores();
 
 	},
 	
@@ -149,6 +146,26 @@ var PlaygroundView = new MAF.Class({
 	},
 
 	/**
+	 * Show scores
+	 */
+	showScores: function() {
+
+		// show worms score
+		this.showWormScore(1, 'red', 'Ondra', 10);
+		this.showWormScore(2, 'green', 'Martin', 12);
+		this.showWormScore(3, 'yellow', 'Petr', 8);
+		this.showWormScore(4, 'blue', 'Radim', 15);
+
+		this.updateScore(1, 'red', 'Ondra', 10);
+	},
+
+	updateScore: function(position, color, name, score) {
+
+		this.textName[color].setText(name + ' ' + score);
+
+	},
+
+	/**
 	 * Show worms score
 	 * @param {Integer} - position
 	 * @param {String} - color
@@ -164,15 +181,16 @@ var PlaygroundView = new MAF.Class({
 		this.wormsScore[color].show();
 
 		// show name and score
-		this.textName = new MAF.element.Text({
+		this.textName[color] = new MAF.element.Text({
 			totalLines: 1,
 			data: name + ' ' + score
 		});
-		this.textName.element.addClass('ingameText');
-		this.textName.element.addClass('name');
-		this.textName.element.addClass('position' + position);
-		this.textName.appendTo(this);
-		this.textName.show();
+
+		this.textName[color].element.addClass('ingameText');
+		this.textName[color].element.addClass('name');
+		this.textName[color].element.addClass('position' + position);
+		this.textName[color].appendTo(this);
+		this.textName[color].show();
 
 	},
 
