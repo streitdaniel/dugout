@@ -152,17 +152,17 @@ var PlaygroundView = new MAF.Class({
 	 */
 	showScores: function() {
 
-		var players = dugout.getOrderedPlayers();
+		var players = dugout.getOrderedPlayers(), lt = {
+			'#ed008c': 'red',
+			'#8cc63e': 'green',
+			'#fcb040': 'yellow',
+			'#008ad2': 'blue'
+		};
 
 		for (var i in players) {
 
-			// show the winner
-			if (0 == i) {
-				this.showWinner(players[i].name);
-			}
-
 			// show worms and name
-			this.showWormScore(players[i].position, players[i].color, players[i].name, players[i].score);
+			this.showWormScore(players[i].position, lt[players[i].color], players[i].name, players[i].score);
 
 		}
 
@@ -182,7 +182,7 @@ var PlaygroundView = new MAF.Class({
 	 * @param {Integer} - score
 	 */
 	showWormScore: function(position, color, name, score) {
-
+		console.log(color);
 		// assign css style to worm
 		this.wormsScore[color].element.addClass('position' + position);
 
