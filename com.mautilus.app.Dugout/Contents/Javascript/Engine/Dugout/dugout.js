@@ -12,6 +12,7 @@ Dugout = function() {
         qrCodeURL;
 
     this.run = run;
+    this.audio = audio;
     this.getQRCode = getQRCode;
     this.getPlayers = getPlayers;
     this.renderBonuses = renderBonuses;
