@@ -30,7 +30,61 @@ var PlaygroundView = new MAF.Class({
 	 */
 	createView: function () {
 		console.log('[PlaygroundView] createView');
-		
+
+		// make dark overlay
+		this.scoreBackground = new MAF.element.Core();
+		this.scoreBackground.element.addClass('scoreBackground');
+		this.scoreBackground.appendTo(this);
+		this.scoreBackground.show();
+
+		// dark left
+		this.leftBackground = new MAF.element.Core();
+		this.leftBackground.element.addClass('leftBackground');
+		this.leftBackground.appendTo(this);
+		this.leftBackground.show();
+
+		// dark right
+		this.rightBackground = new MAF.element.Core();
+		this.rightBackground.element.addClass('rightBackground');
+		this.rightBackground.appendTo(this);
+		this.rightBackground.show();
+
+		// dark bottom
+		this.bottomBackground = new MAF.element.Core();
+		this.bottomBackground.element.addClass('bottomBackground');
+		this.bottomBackground.appendTo(this);
+		this.bottomBackground.show();
+
+		// define worms object
+		this.wormsScore = {};
+
+		// initialize each worms color
+		for (var index in dugout.CONST_COLORS_NAMES) {
+			// assign color
+			var color = dugout.CONST_COLORS_NAMES[index];
+
+			this.wormsScore[color] = new MAF.element.Image({
+				autoShow: false,
+				hideWhileLoading: true,
+				src: 'Images/worm_' + color + '_small.png',
+			});
+
+			this.wormsScore[color].appendTo(this);
+			// add basic class
+			this.wormsScore[color].element.addClass('imgScore');
+		}
+
+		var canvases = dugout.getVisibleCanvases();
+
+		// get and show play play canvases
+		for (var i in canvases) {
+			if (0 == i) {
+				canvases[i].element.addClass('canvasFirst');
+			}
+			canvases[i].appendTo(this);
+			canvases[i].show();
+		}
+
 	},
 
 	/**
@@ -40,6 +94,13 @@ var PlaygroundView = new MAF.Class({
 	 */
 	updateView: function () {
 		console.log('[PlaygroundView] updateView');
+
+		// show worms score
+		this.showWormScore(1, 'red', 'Ondra', 10);
+		this.showWormScore(2, 'green', 'Martin', 12);
+		this.showWormScore(3, 'yellow', 'Petr', 8);
+		this.showWormScore(4, 'blue', 'Radim', 15);
+
 	},
 	
 	/**
@@ -85,5 +146,34 @@ var PlaygroundView = new MAF.Class({
 	 */
 	destroyView: function() {
 		console.log('[PlaygroundView] destroyView');
-	}
+	},
+
+	/**
+	 * Show worms score
+	 * @param {Integer} - position
+	 * @param {String} - color
+	 * @param {String} - name
+	 * @param {Integer} - score
+	 */
+	showWormScore: function(position, color, name, score) {
+
+		// assign css style to worm
+		this.wormsScore[color].element.addClass('position' + position);
+
+		// show worm
+		this.wormsScore[color].show();
+
+		// show name and score
+		this.textName = new MAF.element.Text({
+			totalLines: 1,
+			data: name + ' ' + score
+		});
+		this.textName.element.addClass('ingameText');
+		this.textName.element.addClass('name');
+		this.textName.element.addClass('position' + position);
+		this.textName.appendTo(this);
+		this.textName.show();
+
+	},
+
 });

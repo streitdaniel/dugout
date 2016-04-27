@@ -143,7 +143,7 @@ Dugout_Graphics = function(app) {
     }
 
     function prepareCanvases() {
-        var canvasStyles = { position: 'absolute', top: 0, left: 0, width: 1776, height: 1000 };
+        var canvasStyles = { position: 'absolute', top: 130, left: 70, width: 1780, height: 900 };
         pathCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });
         pathContext = pathCanvas.element.getContext('2d');
         slimeCanvas = new MAF.element.Core({ element: Canvas, styles: canvasStyles });

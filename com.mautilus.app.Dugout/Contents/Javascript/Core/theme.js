@@ -280,5 +280,125 @@ Theme.set({
 		styles: {
 			color: '#000'
 		}
+	},
+
+	PlaygroundView: {
+		styles: {
+			backgroundImage: 'url("./apps/com.mautilus.app.Dugout/Contents/Images/ingame/ingame_bg.png")'
+		}
+	},
+
+	'scoreBackground': {
+		styles: {
+			'width': '1920px',
+			'height': '130px',
+			'background-color': 'rgba(0, 0, 0, 0.5)'
+		}
+	},
+
+	'leftBackground': {
+		styles: {
+			'top': '130px',
+			'width': '70px',
+			'height': '900px',
+			'background-color': 'rgba(0, 0, 0, 0.5)'
+		}
+	},
+
+	'rightBackground': {
+		styles: {
+			'top': '130px',
+			'left': '1850px',
+			'width': '70px',
+			'height': '900px',
+			'background-color': 'rgba(0, 0, 0, 0.5)'
+		}
+	},
+
+	'bottomBackground': {
+		styles: {
+			'top': '1030px',
+			'width': '1920px',
+			'height': '1080px',
+			'background-color': 'rgba(0, 0, 0, 0.5)'
+		}
+	},
+
+	'ingameText': {
+		styles: {
+			'display': 'inline-block',
+			'top': '60px',
+			'font-size': '22px',
+			'line-height': '35px',
+			'background-color': 'rgba(255,255,255, 0.6)',
+			'border-radius': '30px',
+			'width': '240px',
+			'color': '#000000',
+			'text-align': 'left',
+			'padding-left': '70px',
+			'box-shadow': ' 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 23px 0 rgba(0, 0, 0, 0.05)',
+			'z-index': '5'
+		}
+	},
+
+	'ingameText.name.position1': {
+		styles: {
+			left: '88px'
+		}
+	},
+
+	'ingameText.name.position2': {
+		styles: {
+			left: '358px'
+		}
+	},
+
+	'ingameText.name.position3': {
+		styles: {
+			left: '628px'
+		}
+	},
+
+	'ingameText.name.position4': {
+		styles: {
+			left: '898px'
+		}
+	},
+
+	'imgScore': {
+		styles: {
+			'top': '45px',
+			'z-index': '6'
+		}
+	},
+
+	'imgScore.position1': {
+		styles: {
+			left: '82px'
+		}
+	},
+
+	'imgScore.position2': {
+		styles: {
+			left: '352px'
+		}
+	},
+
+	'imgScore.position3': {
+		styles: {
+			left: '622px'
+		}
+	},
+
+	'imgScore.position4': {
+		styles: {
+			left: '892px'
+		}
+	},
+
+	'canvasFirst': {
+		styles: {
+		}
 	}
-});
+	
+});	
