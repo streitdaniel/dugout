@@ -25,7 +25,7 @@ var App = new (function(){
 	this.client = {};   // network client
 	this.scenes = [];   // list of scenes
 	this.COLORS_ID = {"red": 1, "green": 2, "yellow": 3, "blue": 4};
-	this.playerId = 0;  // 1 - red, 2 - green, 3 - yellow, 4 - blue, 0 - no-color
+	this.playerColorId = 0;  // 1 - red, 2 - green, 3 - yellow, 4 - blue, 0 - no-color
 	
 	this.activeView = {};
 	
@@ -35,13 +35,18 @@ var App = new (function(){
 	this.init = function() {
 		connectingView.init();
 		loginView.init();
+		startView.init();
+		controlsView.init();
+		deathView.init();
+		scoreView.init();
+		continueView.init();
 	};
 	
 	/**
 	 * To set color by setting class to viewport
 	 * @param {String|Number} color
 	 */
-	this.setColor = function(color) {
+	this.setColorBg = function(color) {
 		var colorId = color;
 		if(typeof color === 'string') {
 			colorId = this.COLORS_ID[color];
@@ -50,6 +55,20 @@ var App = new (function(){
 		var el = document.getElementById('viewport');
 		el.className = el.className.replace(/color-\d/gi, "");
 		el.addClass('color-'+colorId);
+	};
+	
+	/**
+	 * To set player colorId
+	 * @param {String|Number} color
+	 */
+	this.setColorId = function(color) {
+		var colorId = color;
+		if(typeof color === 'string') {
+			colorId = this.COLORS_ID[color];
+		}
+		this.playerColorId = colorId;
+		
+		this.setColorBg(colorId);
 	};
 	
 	/**
@@ -138,25 +157,70 @@ var Client = new (function(){
 	 */
 	this.processData = function(event) {
 		var data = event.data;
-		
+		data.clients = data.clients || [];
+		data.attrs = data.attrs || {};
 		// data = {event: ‘nazev_udalosti‘,  clients: [], attrs: {}}
+		
+		if(data.clients === [] || data.clients.indexOf(App.room.user) > -1) {
+			// ok
+		} else {
+			// not for me
+			return false;
+		}
+		
 		switch(data.event) {
 			case 'tv_accepted':
-				if(App.activeView !== App.loginView) {
+				if(App.activeView !== loginView) {
 					App.activeView.hide();
 				}
 				
-				App.loginView.show();
-				App.setColor
-				App.loginView.render();
+				App.setColorId(data.attrs.color);
+				loginView.setName(data.attrs.name);
+				loginView.show();
 				break;
-			case '': break;
-			case '': break;
-			case '': break;
-			case '': break;
-			case '': break;
-			case '': break;
-			case '': break;
+			case 'tv_rejected':
+				console.log('tv_rejected TODO');
+				break;
+			case 'tv_all_ready':
+				if(App.activeView !== startView) {
+					App.activeView.hide();
+				}
+				// data.attrs.num_players 
+				startView.show('allready');
+				break;
+			case 'tv_not_all_ready': 
+				if(App.activeView !== startView) {
+					App.activeView.hide();
+				}
+				startView.show('notAllready');
+				break;
+			case 'tv_show_controls':
+				if(App.activeView !== controlsView) {
+					App.activeView.hide();
+				}
+				controlsView.show();
+				break;
+			case 'tv_death': 
+				if(App.activeView !== deathView) {
+					App.activeView.hide();
+				}
+				deathView.show();
+				break;
+			case 'tv_score':
+				if(App.activeView !== scoreView) {
+					App.activeView.hide();
+				}
+				scoreView.show();
+				break;
+			case 'tv_continue':
+				if(App.activeView !== continueView) {
+					App.activeView.hide();
+				}
+				continueView.show();
+				break;
+			case 'dbg_message': 
+				console.log('[Client] dbg_message: ' + data.attrs.message);
+				break;
 			default:
 				console.log('Error unknown event :(');
 		}
@@ -209,7 +273,9 @@ var View = (function() {
 	return View;
 })();
 
-
+/******************************************************************************
+ * VIEW instances
+ ******************************************************************************/
 /**
  * connectingView. Instance of View
  */
@@ -233,6 +299,51 @@ var loginView = function(){
 		var input = document.getElementById('input-login');
 		input.value = name;
 	};
+	return view;
+}();
+
+/**
+ * startView. Instance of View
+ */
+var startView = function(){
+	
+	var view = new View('start');
+	return view;
+}();
+
+/**
+ * controlsView. Instance of View
+ */
+var controlsView = function(){
+	
+	var view = new View('controls');
+	return view;
+}();
+
+/**
+ * connectingView. Instance of View
+ */
+var deathView = function(){
+	
+	var view = new View('death');
+	return view;
+}();
+
+/**
+ * scoreView. Instance of View
+ */
+var scoreView = function(){
+	
+	var view = new View('score');
+	return view;
+}();
+
+/**
+ * continueView. Instance of View
+ */
+var continueView = function(){
+	
+	var view = new View('continue');
 	return view;
 }();
 
